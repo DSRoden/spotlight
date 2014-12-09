@@ -15,9 +15,10 @@ User.register = function(obj, cb){
   var user = new User(obj);
   user.password = bcrypt.hashSync(obj.password, 8);
 
-  randomUrl(obj.avatar, function(file, avatar){
+  randomUrl(obj.avatar, function(file, avatar, token){
     user.avatar = avatar;
-    pg.query('insert into users (username, password, avatar) values ($1, $2, $3) returning id', [user.username, user.password, user.avatar], function(err, results){
+    user.token = token;
+    pg.query('insert into users (username, password, avatar, token) values ($1, $2, $3, $4) returning id', [user.username, user.password, user.avatar, user.token], function(err, results){
       if(err){return cb(true);}
       download(obj.avatar, file, cb);
     });
@@ -40,9 +41,9 @@ function randomUrl(url, cb){
 
   crypto.randomBytes(48, function(ex, buf){
     var token  = buf.toString('hex'),
-        file   = token + '.avatar' + ext,
+        file   = token + '/avatar' + ext,
         avatar = 'https://s3.amazonaws.com/' + process.env.AWS_BUCKET + '/' + file;
-    cb(file, avatar);
+    cb(file, avatar, token);
   });
 }
 

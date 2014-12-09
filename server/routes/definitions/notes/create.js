@@ -14,6 +14,7 @@ module.exports = {
     }
   },
   handler: function(request, reply){
+    console.log(request.payload.title);
     Note.create(request.auth.credentials, request.payload, function(err, noteId){
       reply({noteId:noteId}).code(err ? 400 : 200);
     });
