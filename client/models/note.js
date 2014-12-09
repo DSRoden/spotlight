@@ -28,7 +28,7 @@
         }
 
         function upload(noteId, files){
-          console.log('files', noteId);
+          //console.log('files', noteId);
           var count = 0;
           for (var i = 0; i < files.length; i++){
             var file = files[i];

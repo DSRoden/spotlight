@@ -28,8 +28,8 @@
     };
 
     $scope.create = function(note){
-      console.log('clicking create', note);
-      console.log('clicking create to see files', $scope.files);
+      //console.log('clicking create', note);
+      //console.log('clicking create to see files', $scope.files);
       $scope.count = 0;
       Note.create(note).then(function(response){
         $scope.note = {};

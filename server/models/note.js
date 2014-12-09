@@ -12,9 +12,9 @@ function Note(){
 }
 
 Note.create = function(user, obj, cb){
-  console.log('obj for create', obj);
+  //console.log('obj for create', obj);
   pg.query('select add_note($1, $2, $3, $4)', [user.id, obj.title, obj.body, obj.tags], function(err, results){
-    console.log('err', err);
+    //console.log('err', err);
     cb(err, results && results.rows ? results.rows[0].add_note : null);
   });
 };
