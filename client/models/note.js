@@ -7,7 +7,7 @@
       .factory('Note', ['$rootScope', '$http', '$upload', function($rootScope, $http, $upload){
 
         function create(note){
-          console.log(note);
+         //console.log(note);
           return $http.post('/notes', note);
         }
 
