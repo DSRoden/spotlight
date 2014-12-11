@@ -43,6 +43,24 @@ Note.nuke = function(user, noteId, cb){
   });
 };
 
+Note.uploadmobile = function(user, b64, noteId, cb){
+  var s3   = new AWS.S3();
+
+  crypto.randomBytes(48, function(ex, buf){
+    var hex = buf.toString('hex'),
+        loc = user.token + '/' + noteId + '/' + hex + '.jpg',
+        url = 'https://s3.amazonaws.com/' + process.env.AWS_BUCKET + '/' + loc;
+
+    pg.query('insert into photos (url, note_id) values ($1, $2) returning id', [url, noteId], function(err, results){
+      if(err){return cb(err);}
+
+      var bin    = new Buffer(b64, 'base64'),
+          params = {Bucket: process.env.AWS_BUCKET, Key: loc, Body: bin, ACL: 'public-read'};
+      s3.putObject(params, cb);
+    });
+  });
+};
+
 Note.upload = function(user, file, name, noteId, cb){
   console.log('name from upload', name);
   var s3   = new AWS.S3();
