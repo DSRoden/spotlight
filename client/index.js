@@ -6,7 +6,7 @@
       $urlRouterProvider.otherwise('/');
 
       $stateProvider
-        .state('home',         {url:'/',         templateUrl:'/views/home/home.html'})
+        .state('home',         {url:'/',         templateUrl:'/views/home/home.html',          controller: 'HomeCtrl'})
         .state('register',     {url:'/register', templateUrl:'/views/users/users.html',        controller:'UsersCtrl'})
         .state('login',        {url:'/login',    templateUrl:'/views/users/users.html',        controller:'UsersCtrl'})
         .state('notes',        {url:'/notes',    templateUrl:'/views/notes/notes.html',        abstract:true})
@@ -19,5 +19,10 @@
       }, function(){
         $rootScope.rootuser = null;
       });
+
+        window.socket = io.connect('/');
+        window.socket.on('online', function(){
+          $rootScope.$broadcast('online');
+        });
     }]);
 })();
