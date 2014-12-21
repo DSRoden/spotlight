@@ -10,8 +10,8 @@ var Hapi         = require('hapi'),
   plugins        = require('./routes/config/plugins'),
   authentication = require('./routes/config/authentication');
 
-io.on('connection', require('./sockets/connection'));
-io.set('origins', '*:*');
+  io.on('connection', require('./sockets/connection'));
+  io.set('origins', '*:*');
 
 server.pack.register(plugins, function(){
   server.auth.strategy('session', 'cookie', true, authentication);
@@ -20,4 +20,3 @@ server.pack.register(plugins, function(){
     server.log('info', server.info.uri);
   });
 });
-
