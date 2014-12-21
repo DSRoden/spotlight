@@ -20,9 +20,9 @@
         $rootScope.rootuser = null;
       });
 
-        window.socket = io.connect('/');
-        window.socket.on('online', function(){
-          $rootScope.$broadcast('online');
-        });
+      window.socket = io.connect('/');
+      window.socket.on('online', function(){
+       $rootScope.$broadcast('online');
+      });
     }]);
 })();
