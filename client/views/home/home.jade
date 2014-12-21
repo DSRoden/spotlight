@@ -1,4 +1,10 @@
 h1 HOME
+
+.row
+  h3 Select User
+    .users(ng-repeat='user in users')
+      .user(ng-click="selectUser(user.id)") {{user.id}}
+
 .row
     h3 Global Chat
         #messages.panel.callout.radius

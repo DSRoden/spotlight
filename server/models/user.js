@@ -16,11 +16,15 @@ User.register = function(obj, cb){
   user.password = bcrypt.hashSync(obj.password, 8);
 
   randomUrl(obj.avatar, function(file, avatar, token){
+    console.log('token', user.token);
     user.avatar = avatar;
     user.token = token;
     pg.query('insert into users (username, password, avatar, token) values ($1, $2, $3, $4) returning id', [user.username, user.password, user.avatar, user.token], function(err, results){
       if(err){return cb(true);}
-      download(obj.avatar, file, cb);
+      download(obj.avatar, file, function(response){
+        console.log('response from register', response);
+        cb;
+      });
     });
   });
 };
