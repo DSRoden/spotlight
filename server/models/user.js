@@ -34,17 +34,28 @@ User.login = function(obj, cb){
 };
 
 
+User.spotlightCheck = function(auth, cb){
+  console.log('spotlight check auth>>>>', auth);
+  pg.query('select * from days order by created_at desc limit 1', [], function(err, result){
+    console.log('err from query in spotlightCheck', err);
+    /*jshint camelcase: false */
+    var currentSpotlightId = result.rows[0].user_id;
+    if(currentSpotlightId === auth.id){cb(null, {confirmed : true});}
+    else{cb(null, {confirmed :false});}
+  });
+};
+
 //if the user is the administrator run lottery
 User.runLottery = function(id, cb){
-  console.log(id);
+  //console.log(id);
   if(id !== 1) {return cb(null);}
   pg.query('select id from users', [], function(err, results){
-    console.log(results.rows);
+  //  console.log(results.rows);
     var lotteryNum = Math.floor(Math.random() * (results.rows.length -1) + 1),
         winner = results.rows[lotteryNum];
     pg.query('select * from users where id= $1', [winner.id], function(err, results2){
-      console.log(err);
-      console.log(results2);
+    //  console.log(err);
+    //  console.log(results2);
       cb(results2.rows[0]);
     });
   });
@@ -52,26 +63,90 @@ User.runLottery = function(id, cb){
 
 //ensure that any person trying to broadcast to the public is actually the spotlight
 User.secureSpotlight = function(id, cb){
-  console.log(id);
+  //console.log(id);
   pg.query('select * from days where user_id = $1', [id], function(results){
-    console.log(results);
+  //  console.log(results);
   });
 };
 
 //select winner: set current field on all days to false, then create new day with a current field true
 //add user_id of the winner
 User.selectWinner = function(authId, winnerId, cb){
-  console.log('getting authId', authId);
+  //console.log('getting authId', authId);
+  //make sure only the administrator can selectWinner
   authId = authId.id;
   if(authId !== 1) {return cb(null);}
-  console.log('winnerId from models', winnerId);
-  pg.query('select set_winner($1)', [winnerId.id], function(err, results){
-    pg.query('select * from users where id= $1', [winnerId.id], function(err2, results2){
-    console.log(results2);
-    cb(err, results2.rows[0]);
+  //create password for the day
+  var todaysPassword = makePassword(),
+      //hash the password
+      hashedPassword = bcrypt.hashSync(todaysPassword, 8);
+  //find winner's info by id
+  pg.query('select * from users where id= $1', [winnerId.id], function(err, results){
+    //console.log(results);
+   // console.log(results.rows[0]);
+    var user = results.rows[0],
+    //notify the winner via email
+        message = 'You have been selected as today\'s Spotlight. You will be prompted for a password if you open SPOTLIGHT. To claim the spotlight please enter the following password: ' + todaysPassword +' You will have twenty minutes to claim your spot before the lottery runs again. The whole world wide web is your stage!' ;
+    sendEmail('daniel.s.roden@gmail.com', user.email, message, function(err, resE){
+    //  console.log('email error >>>>>>>>>>>>>>>>>', err);
+    //  console.log('email res >>>>>>>>>>>>>>>>>>', resE);
+    });
+
+    //if user has phone send text notification
+    if(user.phone !== null){
+      sendText(user.phone, 'Your are the Spotlight! Sign into the app and enter this password into the prompt in the next 20 minutes to claim your spot: ' + todaysPassword, function(err, resE){
+        //  console.log('text error >>>>>>>>>>>>>>>>>', err);
+        //  console.log('text res >>>>>>>>>>>>>>>>>>', resE);
+      });
+    }
+    // set day with winner and hashed password and all active as default false
+    pg.query('select set_winner($1, $2)', [winnerId.id, hashedPassword], function(err1, results2){
+      cb(err1, user);
     });
   });
 };
+
+//////PRIVATE HELPER FUNCTIONS/////
+
+//create password
+function makePassword(){
+  var password = '',
+      possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for(var i=0; i < 5; i++){
+    password += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+    return password;
+}
+
+//send a notification email
+function sendEmail(sender, to, body, cb){
+  if(!sender || !to){return cb();}
+
+  var apiKey  = process.env.MGKEY,
+  domain  = process.env.MGDOM,
+  Mailgun = require('mailgun-js'),
+  mg      = new Mailgun({apiKey: apiKey, domain: domain}),
+  subject = 'You\'re in the Spotlight!',
+  data    = {from:sender, to:to, subject:subject, html:body};
+
+  mg.messages().send(data, cb);
+}
+
+
+// send text
+function sendText(to, body, cb){
+  if(!to){return cb();}
+
+  var accountSid = process.env.TWSID,
+  authToken  = process.env.TWTOK,
+  from       = process.env.FROM,
+  client     = require('twilio')(accountSid, authToken);
+
+  client.messages.create({to:to, from:from, body:body}, cb);
+}
+
+
 
 //
 // function randomUrl(url, cb){
