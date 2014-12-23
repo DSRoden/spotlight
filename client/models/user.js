@@ -35,6 +35,11 @@
         return $http.get('/spotlightcheck');
       }
 
-      return {register:register, login:login, logout:logout, runLottery: runLottery, selectWinner: selectWinner, notifyWinner: notifyWinner, isSpotlightOn: isSpotlightOn};
+      function validateSpotlight(password){
+        console.log('validating spotlight with password: ', password);
+        return $http.post('/spotlight', {password : password});
+      }
+
+      return {register:register, login:login, logout:logout, runLottery: runLottery, selectWinner: selectWinner, notifyWinner: notifyWinner, isSpotlightOn: isSpotlightOn, validateSpotlight: validateSpotlight};
     }]);
 })();

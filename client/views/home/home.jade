@@ -4,6 +4,7 @@ h1 HOME
 .row(ng-if="stage")
   .spotlight You are the winner! Take the spotlight by entering today's password: 
   input#spotlightpass(type='password', ng-model='spotlight.password')
+  button.success.tiny.radius(ng-click='validate()') Sumbit Password
 
 .row(ng-if="confirmed")
   h3 Global Chat

@@ -19,6 +19,14 @@
               $scope.stage = (response.data.confirmed) ? true : false;
             });
 
+            //validate the winner's password
+            $scope.validate = function(){
+              console.log('validating password button clicked');
+              User.validateSpotlight($scope.spotlight.password).then(function(response){
+                console.log(response);
+                console.log('rootuser', $rootScope.rootuser);
+              });
+            };
 
             //manual lottery
             $scope.runLottery = function(){

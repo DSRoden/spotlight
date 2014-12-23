@@ -34,10 +34,46 @@ User.login = function(obj, cb){
 };
 
 
+User.validateSpotlight = function(auth, password, cb){
+  console.log('auth', auth);
+  console.log('password', password);
+  pg.query('select * from users where username = $1 limit 1', [auth.username], function(err, results){
+    if(err || !results.rowCount){return cb();}
+    var user = results.rows[0];
+    pg.query('select * from days order by created_at desc limit 1', [], function(err2, results2){
+      /*jshint camelcase: false */
+      var dayUserId = results2.rows[0].user_id,
+          todaysPassword = results2.rows[0].password;
+      console.log('user id', user.id);
+      console.log('day user_id', dayUserId);
+      console.log('password user has provided', password.password);
+      console.log('password day has provided', todaysPassword);
+
+      var hash = bcrypt.hashSync(password.password, 8);
+      console.log('check hash', hash);
+
+      console.log('vliadation process',  bcrypt.compareSync(password.password, todaysPassword));
+      // if(validated && dayUserId === user.id){
+      //   user.spotlightPass = password;
+      //   return cb(user);
+      // } else {
+      //   console.log('not validated');
+      //   return cb();}
+    });
+    // var isAuth = bcrypt.compareSync(obj.password, results.rows[0].password);
+    // if(!isAuth){return cb();}
+    // var user = results.rows[0];
+    // delete user.password;
+    // cb(user);
+  });
+};
+
+
+
 User.spotlightCheck = function(auth, cb){
-  console.log('spotlight check auth>>>>', auth);
+  //console.log('spotlight check auth>>>>', auth);
   pg.query('select * from days order by created_at desc limit 1', [], function(err, result){
-    console.log('err from query in spotlightCheck', err);
+    //console.log('err from query in spotlightCheck', err);
     /*jshint camelcase: false */
     var currentSpotlightId = result.rows[0].user_id;
     if(currentSpotlightId === auth.id){cb(null, {confirmed : true});}
