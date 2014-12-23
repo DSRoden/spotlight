@@ -6,6 +6,8 @@ module.exports = [
   {method: 'post',   path: '/login',                 config: require('../definitions/users/login')},
   {method: 'delete', path: '/logout',                config: require('../definitions/users/logout')},
   {method: 'get',    path: '/status',                config: require('../definitions/users/status')},
+  {method: 'get',    path: '/users',                 config: require('../definitions/users/lottery')},
+  {method: 'post',    path: '/winner',                 config: require('../definitions/users/winner')},
   {method: 'post',   path: '/notes',                 config: require('../definitions/notes/create')},
   {method: 'get',    path: '/notes',                 config: require('../definitions/notes/query')},
   {method: 'post',   path: '/notes/{noteId}/upload', config: require('../definitions/notes/upload')},

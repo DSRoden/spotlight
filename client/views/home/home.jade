@@ -1,10 +1,16 @@
 h1 HOME
 
-.row
-  h3 Select User
-    .users(ng-repeat='user in users')
-      .user(ng-click="selectUser(user.id)") {{user.id}}
 
+.row(ng-if="showAdmin")
+    .winner Today's winner id: {{winner.id}}
+    .button.winner-info(ng-click="winnerInfo()") Winner Info
+    .button.runLottery(ng-click="runLottery()") Run Lottery Again
+    .button.selectWinner(ng-click="selectWinner(winner.id)") Add as Spotlight
+
+.row(ng-if="showWinner")
+  h5 Winner's name: {{winner.username}}
+  h5 Winner's email: {{winner.email}}
+  h5 Winner's phone: {{winner.phone}}
 .row
     h3 Global Chat
         #messages.panel.callout.radius
@@ -12,4 +18,4 @@ h1 HOME
                 .avatar(style='background-image:url("{{message.avatar}}")')
                 .content {{message.content}}
         input#message(type='text', ng-model='message')
-        button.success.tiny.radius(ng-click='chat(message)') Send Message
+        button.success.tiny.radius(ng-if="showAdmin", ng-click='chat(message)') Send Message

@@ -1,5 +1,6 @@
-create table notes(
+create table days(
   id serial primary key,
   created_at timestamp not null default now(),
-  user_id integer not null references users(id)
+  user_id integer not null references users(id),
+  active boolean DEFAULT false
 );

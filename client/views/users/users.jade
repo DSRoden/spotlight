@@ -8,15 +8,20 @@ h1 {{mode | uppercase}}
           label(for='username') Username
           input#username(type='text', name='username', ng-model='user.username', autofocus)
         .small-6.columns
+      .row(ng-show='mode === "register"')
+        .small-6.columns
+          label(for='email') Email
+          input#username(type='email', name='email', ng-model='user.email', placeholder="your email")
+        .small-6.columns
+      .row(ng-show='mode === "register"')
+        .small-6.columns
+          label(for='phone') Phone (optional)
+          input#avatar(type='text', name='phone', ng-model='user.phone', placeholder="phone number")
+        .small-6.columns
       .row
         .small-6.columns
           label(for='password') Password
           input#password(type='password', name='password', ng-model='user.password')
-        .small-6.columns
-      .row(ng-show='mode === "register"')
-        .small-6.columns
-          label(for='avatar') Avatar
-          input#avatar(type='text', name='avatar', ng-model='user.avatar')
         .small-6.columns
       .row
         .small-6.columns
