@@ -12,8 +12,8 @@ module.exports = function(data){
       Message.record({dayId : obj.dayId, userId: data.id, content: data.content}, function(response){
         if(!response){return;}
         //console.log('message saved, emitting now', response);
-        data.time = response;
-        delete data.id;
+        data.time = response.time;
+        data.id = response.id;
         console.log('data being returned from socket message', data);
         socket.emit('bGlobalChat', data);
         socket.broadcast.emit('bGlobalChat', data);
