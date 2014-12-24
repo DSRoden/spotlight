@@ -131,7 +131,7 @@
 
             socket.on('bGlobalChat', function(data){
                 console.log(data);
-                $scope.messages.unshift(data);
+                $scope.updates.unshift(data);
                 // $scope.messages = $scope.messages.slice(0, 100);
                 $scope.message = null;
                 $scope.$digest();
