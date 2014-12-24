@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('hapi-auth')
-        .controller('HomeCtrl', ['$rootScope', '$scope', '$state', 'User', function($rootScope, $scope, $state, User){
+        .controller('HomeCtrl', ['$rootScope', '$scope', '$state', 'User', 'Message', function($rootScope, $scope, $state, User, Message){
             $scope.messages = [];
             $scope.winner = {};
             $scope.lotteryNum = null;
@@ -13,9 +13,16 @@
             $scope.confirmed = false;
             $scope.validated = false;
 
+            //make a call to db to get all messages for current day
+            Message.getAll().then(function(response){
+              $scope.messages = response.data;
+              console.log(response);
+              //$scope.messages = response.data.messages;
+            });
+
             //check to see if rootuser is in the spotlight
             User.isSpotlightOn().then(function(response){
-              console.log('response from isSpotlightOn', response);
+              //console.log('response from isSpotlightOn', response);
               $scope.confirmed = (response.data.confirmed) ? true : false;
               $scope.validated = (response.data.validated) ? true : false;
               if($scope.validated){$scope.confirmed = false;}
@@ -23,14 +30,14 @@
 
             //validate the winner's password
             $scope.validate = function(){
-              console.log('validating password button clicked');
+              //console.log('validating password button clicked');
               User.validateSpotlight($scope.spotlight.password).then(function(response){
-                console.log(response);
+                //console.log(response);
                 if(response.data.validated){
                   $scope.validated = true;
                   $scope.confirmed = false;
                 }
-                console.log('rootuser', $rootScope.rootuser);
+                //console.log('rootuser', $rootScope.rootuser);
               });
             };
 
@@ -60,7 +67,7 @@
                 //console.log($scope.winner.id);
                 //create winner variable and emit info
                 var winner = $scope.winner;
-                console.log('winner received and being emitted', winner);
+                //console.log('winner received and being emitted', winner);
                 socket.emit('spotlightChosen', {winner: winner});
               });
             };
