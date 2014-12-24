@@ -43,7 +43,8 @@ User.validateSpotlight = function(auth, password, cb){
     pg.query('select * from days order by created_at desc limit 1', [], function(err2, results2){
       /*jshint camelcase: false */
       var dayUserId = results2.rows[0].user_id,
-          todaysPassword = results2.rows[0].password;
+          todaysPassword = results2.rows[0].password,
+          userPass = password.password;
       console.log('user id', user.id);
       console.log('day user_id', dayUserId);
       console.log('password user has provided', password.password);
@@ -53,18 +54,16 @@ User.validateSpotlight = function(auth, password, cb){
       console.log('check hash', hash);
 
       console.log('vliadation process',  bcrypt.compareSync(password.password, todaysPassword));
-      // if(validated && dayUserId === user.id){
-      //   user.spotlightPass = password;
-      //   return cb(user);
-      // } else {
-      //   console.log('not validated');
-      //   return cb();}
+      var validated =  bcrypt.compareSync(password.password, todaysPassword);
+      if(validated && dayUserId === user.id){
+        pg.query('UPDATE users SET spotlightpass = $1 WHERE id = $2', [userPass, dayUserId], function(err, results3){
+          console.log('results3 coming back after spotlightPass', err);
+          cb({validated : true});
+        });
+      } else {
+        console.log('not validated');
+        return cb();}
     });
-    // var isAuth = bcrypt.compareSync(obj.password, results.rows[0].password);
-    // if(!isAuth){return cb();}
-    // var user = results.rows[0];
-    // delete user.password;
-    // cb(user);
   });
 };
 
