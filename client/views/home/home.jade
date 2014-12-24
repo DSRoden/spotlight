@@ -9,9 +9,11 @@ h1 HOME
 .row(ng-if="validated")
   h3 Spotlight
     #messages.panel.callout.radius
-      .update(ng-repeat="update in messages | orderBy: 'time': true", ng-class="{message : update.content, photo: update.url}")
+      .update(ng-repeat="update in messages | orderBy: 'time': true", ng-class="{message : update.content}")
         .avatar(style='background-image:url("{{message.avatar}}")')
-        .content {{update.content || update.photo}}
+        .photo(ng-if="update.url", ng-src="{{update.url}}")
+        .content {{update.content}}
+          
 
 .row(ng-if="validated")
   input#message(type='text', ng-model='message.content')
@@ -31,7 +33,9 @@ h1 HOME
 
 .row(ng-if="!validated")
     h3 Global Chat
-        #messages.panel.callout.radius
-            .message(ng-repeat='message in messages')
-                .avatar(style='background-image:url("{{message.avatar}}")')
-                .content {{message.content}}
+      #messages.panel.callout.radius
+        .updates(ng-repeat="update in updates | orderBy: 'time': true", ng-class="{message : update.content}")
+          .avatar(style='background-image:url("{{message.avatar}}")')
+          .photo(ng-if="update.url")
+             img(ng-src="{{update.url}}")
+          .content {{update.content}}
