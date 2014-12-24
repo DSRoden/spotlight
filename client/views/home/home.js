@@ -3,6 +3,7 @@
 
     angular.module('hapi-auth')
         .controller('HomeCtrl', ['$rootScope', '$scope', '$state', 'User', 'Message', function($rootScope, $scope, $state, User, Message){
+            $scope.message = {};
             $scope.messages = [];
             $scope.winner = {};
             $scope.lotteryNum = null;
@@ -102,6 +103,7 @@
                 $scope.$apply(function(){
                   $scope.confirmed = false;
                   $scope.validated = false;
+                  $scope.messages = [];
                 });
               }
             });
@@ -110,14 +112,16 @@
             //sending messages, need to be validated as spotlight
             $scope.chat = function(msg){
                 socket.emit('globalChat', {id: $scope.rootuser.id, content:msg});
+                $scope.$apply(function(){
+                  $scope.message = '';
+                });
             };
 
 
             socket.on('bGlobalChat', function(data){
                 $scope.messages.unshift(data);
-                $scope.messages = $scope.messages.slice(0, 100);
+                // $scope.messages = $scope.messages.slice(0, 100);
                 $scope.message = null;
-                $('#message').focus();
                 $scope.$digest();
             });
         }]);

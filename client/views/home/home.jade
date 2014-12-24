@@ -9,13 +9,13 @@ h1 HOME
 .row(ng-if="validated")
   h3 Spotlight
     #messages.panel.callout.radius
-      .message(ng-repeat='message in messages')
+      .update(ng-repeat="update in messages | orderBy: 'time': true", ng-class="{message : update.content, photo: update.url}")
         .avatar(style='background-image:url("{{message.avatar}}")')
-        .content {{message.content}}
+        .content {{update.content || update.photo}}
 
 .row(ng-if="validated")
-  input#message(type='text', ng-model='message')
-  button.success.tiny.radius(ng-click='chat(message)') Send Message
+  input#message(type='text', ng-model='message.content')
+  button.success.tiny.radius(ng-click='chat(message.content)') Send Message
             
 .row(ng-if="showAdmin")
   .winner Today's winner id: {{winner.id}}
@@ -29,12 +29,9 @@ h1 HOME
   h5 Winner's email: {{winner.email}}
   h5 Winner's phone: {{winner.phone}}
 
-.row
+.row(ng-if="!validated")
     h3 Global Chat
         #messages.panel.callout.radius
             .message(ng-repeat='message in messages')
                 .avatar(style='background-image:url("{{message.avatar}}")')
                 .content {{message.content}}
-.row
-  input#message(type='text', ng-model='message')
-  button.success.tiny.radius(ng-click='chat(message)') Send Message
