@@ -35,3 +35,6 @@ h1 HOME
             .message(ng-repeat='message in messages')
                 .avatar(style='background-image:url("{{message.avatar}}")')
                 .content {{message.content}}
+.row
+  input#message(type='text', ng-model='message')
+  button.success.tiny.radius(ng-click='chat(message)') Send Message

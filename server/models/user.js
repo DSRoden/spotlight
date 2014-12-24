@@ -110,8 +110,17 @@ User.runLottery = function(id, cb){
 //ensure that any person trying to broadcast to the public is actually the spotlight
 User.secureSpotlight = function(id, cb){
   //console.log(id);
-  pg.query('select * from days where user_id = $1', [id], function(results){
-  //  console.log(results);
+  pg.query('select * from days order by created_at desc limit 1', [], function(err, results){
+    //console.log('going into days to find most recent', results);
+   /*jshint camelcase: false */
+    if(results.rows[0].user_id !== id){return cb();}
+    pg.query('select * from users where id= $1', [id], function(err, results2){
+      var validated = bcrypt.compareSync(results2.rows[0].spotlightpass, results.rows[0].password);
+      if(!validated){return cb();}
+      //console.log('user passing security checks for messages');
+      cb({dayId: results.rows[0].id});
+
+    });
   });
 };
 
