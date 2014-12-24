@@ -35,8 +35,8 @@ User.login = function(obj, cb){
 
 
 User.validateSpotlight = function(auth, password, cb){
-  console.log('auth', auth);
-  console.log('password', password);
+  //console.log('auth', auth);
+  //console.log('password', password);
   pg.query('select * from users where username = $1 limit 1', [auth.username], function(err, results){
     if(err || !results.rowCount){return cb();}
     var user = results.rows[0];
@@ -44,24 +44,21 @@ User.validateSpotlight = function(auth, password, cb){
       /*jshint camelcase: false */
       var dayUserId = results2.rows[0].user_id,
           todaysPassword = results2.rows[0].password,
-          userPass = password.password;
-      console.log('user id', user.id);
-      console.log('day user_id', dayUserId);
-      console.log('password user has provided', password.password);
-      console.log('password day has provided', todaysPassword);
+          userPass = password.password,
+          validated =  bcrypt.compareSync(password.password, todaysPassword);
+      //console.log('user id', user.id);
+      //console.log('day user_id', dayUserId);
+      //console.log('password user has provided', password.password);
+      //console.log('password day has provided', todaysPassword);
+      //console.log('vliadation process',  bcrypt.compareSync(password.password, todaysPassword));
 
-      var hash = bcrypt.hashSync(password.password, 8);
-      console.log('check hash', hash);
-
-      console.log('vliadation process',  bcrypt.compareSync(password.password, todaysPassword));
-      var validated =  bcrypt.compareSync(password.password, todaysPassword);
       if(validated && dayUserId === user.id){
         pg.query('UPDATE users SET spotlightpass = $1 WHERE id = $2', [userPass, dayUserId], function(err, results3){
-          console.log('results3 coming back after spotlightPass', err);
+          //console.log('results3 coming back after spotlightPass', err);
           cb({validated : true});
         });
       } else {
-        console.log('not validated');
+        //console.log('not validated');
         return cb();}
     });
   });
@@ -72,11 +69,25 @@ User.validateSpotlight = function(auth, password, cb){
 User.spotlightCheck = function(auth, cb){
   //console.log('spotlight check auth>>>>', auth);
   pg.query('select * from days order by created_at desc limit 1', [], function(err, result){
-    //console.log('err from query in spotlightCheck', err);
-    /*jshint camelcase: false */
-    var currentSpotlightId = result.rows[0].user_id;
-    if(currentSpotlightId === auth.id){cb(null, {confirmed : true});}
-    else{cb(null, {confirmed :false});}
+    pg.query('select * from users where id = $1', [auth.id], function(err2, results2){
+      //console.log('err from query in spotlightCheck', err);
+      /*jshint camelcase: false */
+      var dayPass = result.rows[0].password,
+          currentSpotlightId = result.rows[0].user_id,
+          confirmed = (currentSpotlightId === auth.id) ? true : false,
+          validated, userPass;
+
+          if(results2.rows[0].spotlightpass !== null){
+            /*jshint -W030 */
+            userPass = results2.rows[0].spotlightpass,
+            validated = bcrypt.compareSync(userPass, dayPass);
+          }
+
+          console.log('userpass>>>>', userPass);
+          console.log('daysPass>>>>', dayPass);
+          console.log('is it being validated on spotlight check', validated);
+      cb(null, {confirmed : confirmed, validated :validated});
+    });
   });
 };
 

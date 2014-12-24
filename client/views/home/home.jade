@@ -1,19 +1,19 @@
 h1 HOME
 
 
-.row(ng-if="stage")
+.row(ng-if="confirmed")
   .spotlight You are the winner! Take the spotlight by entering today's password: 
   input#spotlightpass(type='password', ng-model='spotlight.password')
   button.success.tiny.radius(ng-click='validate()') Sumbit Password
 
-.row(ng-if="confirmed")
-  h3 Global Chat
+.row(ng-if="validated")
+  h3 Spotlight
     #messages.panel.callout.radius
       .message(ng-repeat='message in messages')
         .avatar(style='background-image:url("{{message.avatar}}")')
         .content {{message.content}}
 
-.row(ng-if="confirmed")
+.row(ng-if="validated")
   input#message(type='text', ng-model='message')
   button.success.tiny.radius(ng-click='chat(message)') Send Message
             
@@ -28,11 +28,10 @@ h1 HOME
   h5 Winner's name: {{winner.username}}
   h5 Winner's email: {{winner.email}}
   h5 Winner's phone: {{winner.phone}}
-//- .row
-//-     h3 Global Chat
-//-         #messages.panel.callout.radius
-//-             .message(ng-repeat='message in messages')
-//-                 .avatar(style='background-image:url("{{message.avatar}}")')
-//-                 .content {{message.content}}
-//-         input#message(type='text', ng-model='message')
-//-         button.success.tiny.radius(ng-if="showAdmin", ng-click='chat(message)') Send Message
+
+.row
+    h3 Global Chat
+        #messages.panel.callout.radius
+            .message(ng-repeat='message in messages')
+                .avatar(style='background-image:url("{{message.avatar}}")')
+                .content {{message.content}}

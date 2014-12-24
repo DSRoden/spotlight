@@ -10,13 +10,15 @@
             $scope.showAdmin = false;
             $scope.showWinner = false;
             $scope.spotlight = {};
-            $scope.stage = false;
             $scope.confirmed = false;
+            $scope.validated = false;
 
             //check to see if rootuser is in the spotlight
             User.isSpotlightOn().then(function(response){
               console.log('response from isSpotlightOn', response);
-              $scope.stage = (response.data.confirmed) ? true : false;
+              $scope.confirmed = (response.data.confirmed) ? true : false;
+              $scope.validated = (response.data.validated) ? true : false;
+              if($scope.validated){$scope.confirmed = false;}
             });
 
             //validate the winner's password
@@ -24,6 +26,10 @@
               console.log('validating password button clicked');
               User.validateSpotlight($scope.spotlight.password).then(function(response){
                 console.log(response);
+                if(response.data.validated){
+                  $scope.validated = true;
+                  $scope.confirmed = false;
+                }
                 console.log('rootuser', $rootScope.rootuser);
               });
             };
@@ -82,15 +88,19 @@
               if($rootScope.rootuser.id === $scope.selectedUser){
                   console.log('inside are you the spotlight if statement');
                   $scope.$apply(function(){
-                    $scope.stage = true;
+                    $scope.confirmed = true;
+                    $scope.validated = false;
                   });
               } else {
                 $scope.$apply(function(){
-                  $scope.stage = false;
+                  $scope.confirmed = false;
+                  $scope.validated = false;
                 });
               }
             });
 
+
+            //sending messages, need to be validated as spotlight
             $scope.chat = function(msg){
                 socket.emit('globalChat', {id: $scope.rootuser.id, content:msg});
             };

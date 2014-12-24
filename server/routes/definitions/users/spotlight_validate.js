@@ -12,11 +12,11 @@ module.exports = {
     }
   },
   handler: function(request, reply){
-    User.validateSpotlight(request.auth.credentials, request.payload, function(user){
-      if(!user){return reply().code(401);}
-      console.log('user coming back after validation', user);
+    User.validateSpotlight(request.auth.credentials, request.payload, function(validation){
+      if(!validation){return reply().code(401);}
+      //console.log('user coming back after validation', validation);
       // request.auth.session.set(user);
-      // reply(user);
+       reply(validation);
     });
   }
 };
