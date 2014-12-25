@@ -46,3 +46,5 @@ Photo.uploadmobile = function(user, b64, cb){
     });
   });
 };
+
+module.exports = Photo;
