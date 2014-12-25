@@ -38,5 +38,5 @@ h1 HOME
         .updates(ng-repeat="update in updates | orderBy: 'time': true", ng-class="{message : update.content}")
           .avatar(style='background-image:url("{{message.avatar}}")')
           .photo(ng-if="update.url")
-             img(ng-src="{{update.url}}")
+             img.th(ng-src='{{update.url}}')
           .content {{update.content}}
