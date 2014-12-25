@@ -11,6 +11,9 @@ module.exports = {
     }
   },
   handler: function(request, reply, socket){
+    console.log('inside handler, request', request);
+    console.log('inside handler, socket', socket);
+
     Photo.uploadmobilephoto(request.auth.credentials, request.payload.b64, function(imageObj){
       if(!imageObj){reply().code(400);}
       console.log('image object returning to definitions', imageObj);
