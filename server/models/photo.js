@@ -28,19 +28,21 @@ Photo.uploadmobile = function(user, b64, cb){
         if(err){return cb(err);}
         console.log('results from inserting image into db>>>>', results);
 
+        //prepare image object to be sent back
+        var imageId = results.rows[0].id,
+        imageUrl = results.rows[0].url,
+        time = results.rows[0].created_at,
+        var imageObj = {time: time, url: imageUrl, id: imageId};
+        console.log('image object inside model', imageObj)
+
         var bin    = new Buffer(b64, 'base64'),
         params = {Bucket: process.env.AWS_BUCKET, Key: loc, Body: bin, ACL: 'public-read'};
         s3.putObject(params, function(s3Response){
           console.log('s3 response>>>>>', s3Response);
           if(!s3Response){return cb();}
 
-          //prepare image object to be sent back
-          var imageId = results.rows[0].id,
-          imageUrl = results.rows[0].url,
-          time = results.rows[0].created_at;
-
           //return image object
-          cb({time: time, url: imageUrl, id: imageId});
+          cb(imageObj);
         });
       });
     });
