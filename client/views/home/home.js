@@ -137,10 +137,10 @@
                 $scope.$digest();
             });
 
-            //getting back image from sockets
             socket.on('bGlobalImage', function(data){
               console.log('image from sockets', data);
               $scope.updates.unshift(data);
+              $scope.$digest();
             });
 
 
