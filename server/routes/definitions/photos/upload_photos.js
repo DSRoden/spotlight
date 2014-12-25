@@ -7,7 +7,7 @@ module.exports = {
   tags:['photos'],
   validate: {
     payload:{
-      maxBytes: 20500500
+      maxBytes: 40500500
     }
   },
   handler: function(request, reply){
