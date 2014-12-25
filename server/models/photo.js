@@ -37,13 +37,7 @@ Photo.uploadmobile = function(user, b64, cb){
 
         var bin    = new Buffer(b64, 'base64'),
         params = {Bucket: process.env.AWS_BUCKET, Key: loc, Body: bin, ACL: 'public-read'};
-        s3.putObject(params, function(s3Response){
-          console.log('s3 response>>>>>', s3Response);
-          if(!s3Response){return cb();}
-
-          //return image object
-          cb(imageObj);
-        });
+        s3.putObject(params, cb(imageObj));
       });
     });
   });
