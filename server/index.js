@@ -13,11 +13,6 @@ var Hapi         = require('hapi'),
   io.on('connection', require('./sockets/connection'));
   io.set('origins', '*:*');
 
-  io.configure(function () {
-    io.set("transports", ["xhr-polling"]);
-    io.set("polling duration", 10);
-  });
-
 server.pack.register(plugins, function(){
   server.auth.strategy('session', 'cookie', true, authentication);
   server.route(routes);
