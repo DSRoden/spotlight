@@ -40,7 +40,7 @@ Photo.uploadmobile = function(user, b64, cb){
           time = results.rows[0].created_at;
 
           //return image object
-          cb({time : time, url : imageUrl, id : imageId});
+          cb({time: time, url: imageUrl, id: imageId});
         });
       });
     });
