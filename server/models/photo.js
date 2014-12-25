@@ -32,8 +32,8 @@ Photo.uploadmobile = function(user, b64, cb){
         var imageId = results.rows[0].id,
         imageUrl = results.rows[0].url,
         time = results.rows[0].created_at,
-        var imageObj = {time: time, url: imageUrl, id: imageId};
-        console.log('image object inside model', imageObj)
+        imageObj = {time: time, url: imageUrl, id: imageId};
+        console.log('image object inside model', imageObj);
 
         var bin    = new Buffer(b64, 'base64'),
         params = {Bucket: process.env.AWS_BUCKET, Key: loc, Body: bin, ACL: 'public-read'};
