@@ -10,7 +10,7 @@ User   = require('./user');
 function Photo(){
 }
 
-Photo.uploadmobilephoto = function(user, b64, cb){
+Photo.uploadmobile = function(user, b64, cb){
   //implement secure spotlight check
   User.secureSpotlight(user.id, function(dayObj){
     if(!dayObj){return cb();}
