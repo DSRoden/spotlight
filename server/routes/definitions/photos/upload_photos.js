@@ -5,13 +5,11 @@ var Photo = require('../../../models/photo');
 module.exports = {
   description: 'Upload a Photo',
   tags:['photos'],
-  validate: {
-    payload:{
+  payload:{
       maxBytes: 40500500
-    }
   },
   handler: function(request, reply){
-    console.log('inside handler, request', request);
+    console.log('inside handler, request', request.payload);
     //console.log('inside handler, socket');
 
     Photo.uploadmobilephoto(request.auth.credentials, request.payload.b64, function(imageObj){
