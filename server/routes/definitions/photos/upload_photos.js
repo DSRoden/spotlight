@@ -1,8 +1,6 @@
 'use strict';
 
-var Photo = require('../../../models/photo'),
-
-io             = require('socket.io');
+var Photo = require('../../../models/photo');
 
 module.exports = {
   description: 'Upload a Photo',
