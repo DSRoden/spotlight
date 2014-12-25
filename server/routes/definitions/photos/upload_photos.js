@@ -15,7 +15,7 @@ module.exports = {
     Photo.uploadmobile(request.auth.credentials, request.payload.b64, function(imageObj){
       if(!imageObj){reply().code(400);}
       console.log('image object returning to definitions', imageObj);
-      socket.emit('globalImage', imageObj);
+      io.emit('globalImage', imageObj);
       reply().code(200);
     });
   }
