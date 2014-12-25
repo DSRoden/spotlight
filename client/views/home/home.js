@@ -128,13 +128,21 @@
                 });
             };
 
-
+            //getting message back from sockets
             socket.on('bGlobalChat', function(data){
-                console.log(data);
+                //console.log('message from sockets', data);
                 $scope.updates.unshift(data);
                 // $scope.messages = $scope.messages.slice(0, 100);
                 $scope.message = null;
                 $scope.$digest();
             });
+
+            //getting back image from sockets
+            socket.on('bGlobalImage', function(data){
+              console.log('image from sockets', data);
+              $scope.updates.unshift(data);
+            });
+
+
         }]);
 })();

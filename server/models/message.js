@@ -11,7 +11,7 @@ Message.record = function(obj, cb){
   /*jshint camelcase: false */
   pg.query('insert into messages (content, user_id, day_id) values ($1, $2, $3) returning id, created_at', [obj.content, obj.userId, obj.dayId], function(err, results){
     if(err){console.log(err); return cb();}
-    console.log('results from message recordign and cat', results);
+    console.log('results from message recording and chat', results);
     /*jshint camelcase: false */
     var time = results.rows[0].created_at,
         id = results.rows[0].id;

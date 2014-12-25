@@ -11,6 +11,7 @@ module.exports = [
   {method: 'get',    path: '/spotlightcheck',        config: require('../definitions/users/spotlight_check')},
   {method: 'post',    path: '/spotlight',            config: require('../definitions/users/spotlight_validate')},
   {method: 'get',    path: '/messages',              config: require('../definitions/messages/query')},
+  {method: 'post',   path: '/photos',                config: require('../definitions/photos/upload_photos')},
   {method: 'post',   path: '/notes',                 config: require('../definitions/notes/create')},
   {method: 'get',    path: '/notes',                 config: require('../definitions/notes/query')},
   {method: 'post',   path: '/notes/{noteId}/upload', config: require('../definitions/notes/upload')},
