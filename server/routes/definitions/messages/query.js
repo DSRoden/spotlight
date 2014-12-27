@@ -7,7 +7,7 @@ module.exports = {
   tags:['messages'],
   handler: function(request, reply){
     Message.query(function(err, messages){
-      console.log('getting messages back in query', messages);
+      //console.log('getting messages back in query', messages);
       reply(messages).code(err ? 400 : 200);
     });
   }

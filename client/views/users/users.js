@@ -10,6 +10,7 @@
         if($scope.mode === 'register'){
           console.log('registering');
           User.register($scope.user).then(function(response){
+            console.log('getting response from register', response);
             $state.go('login');
           }, function(){
             $scope.user = {};

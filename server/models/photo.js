@@ -5,10 +5,28 @@
 var pg     = require('../postgres/manager'),
 AWS    = require('aws-sdk'),
 crypto = require('crypto'),
-User   = require('./user');
+User   = require('./user'),
+_       = require('underscore');
 
 function Photo(){
 }
+
+Photo.query = function(cb){
+  //find id of most recent day
+  pg.query('select * from days order by created_at desc limit 1', [], function(err, results){
+    //console.log('results from photos query', results);
+    //use day id to collect all photos in descending order
+    pg.query('select * from images where day_id= $1 order by created_at desc', [results.rows[0].id], function(err2, results2){
+      //console.log('results2 from photos query', results2.rows);
+      var photos =  _.map(results2.rows, function(obj){
+        /*jshint camelcase: false */
+        return {time: obj.created_at, url: obj.url, id: obj.id};
+      });
+      cb(null, photos);
+    });
+  });
+};
+
 
 Photo.uploadmobile = function(user, b64, cb){
   //implement secure spotlight check
@@ -44,5 +62,6 @@ Photo.uploadmobile = function(user, b64, cb){
     });
   });
 };
+
 
 module.exports = Photo;

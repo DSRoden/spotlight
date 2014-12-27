@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('hapi-auth')
-        .controller('HomeCtrl', ['$rootScope', '$scope', '$state', 'User', 'Message', function($rootScope, $scope, $state, User, Message){
+        .controller('HomeCtrl', ['$rootScope', '$scope', '$state', 'User', 'Message', 'Photo', function($rootScope, $scope, $state, User, Message, Photo){
             $scope.message = {};
             $scope.messages = [];
             $scope.updates = [];
@@ -17,13 +17,18 @@
 
             //photo testing
             $scope.photos =[];
-            $scope.photos.push({time: '2014-12-24T19:56:25.745Z', url: 'https://s3.amazonaws.com/dsroden-spotlight/6/7e63a…a51376956c3af47f78230195e3db8f9a572aa57a64c9c.jpg'});
-            $scope.photos.push({time: '2014-12-24T20:40:29.793Z', url: 'https://cdn3.iconfinder.com/data/icons/pictofoundry-pro-vector-set/512/Avatar-512.png'});
+            //$scope.photos.push({time: '2014-12-24T19:56:25.745Z', url: 'https://s3.amazonaws.com/dsroden-spotlight/6/7e63a…a51376956c3af47f78230195e3db8f9a572aa57a64c9c.jpg'});
+            //$scope.photos.push({time: '2014-12-24T20:40:29.793Z', url: 'https://cdn3.iconfinder.com/data/icons/pictofoundry-pro-vector-set/512/Avatar-512.png'});
 
             //merge photos and messages
             $scope.merge = function(){
               $scope.updates = _.union($scope.photos, $scope.messages);
             };
+
+            //make a call to db to get all photos for current day
+            Photo.getAll().then(function(response){
+              $scope.photos = response.data;
+            });
 
             //make a call to db to get all messages for current day
             Message.getAll().then(function(response){
