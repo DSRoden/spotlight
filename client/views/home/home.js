@@ -37,6 +37,7 @@
               $scope.merge();
             });
 
+
             //check to see if rootuser is in the spotlight
             User.isSpotlightOn().then(function(response){
               //console.log('response from isSpotlightOn', response);
