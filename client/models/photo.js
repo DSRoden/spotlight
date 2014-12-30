@@ -9,6 +9,10 @@
       return $http.get('/photos');
     }
 
-    return {getAll: getAll};
+    function getAllAuthenticated(){
+      return $http.get('/photos/authenticated');
+    }
+
+    return {getAll: getAll, getAllAuthenticated: getAllAuthenticated};
   }]);
 })();

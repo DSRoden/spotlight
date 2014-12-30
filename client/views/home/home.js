@@ -25,6 +25,8 @@
               $scope.updates = _.union($scope.photos, $scope.messages);
             };
 
+            if(!$rootScope.rootuser){
+
             //make a call to db to get all photos for current day
             Photo.getAll().then(function(response){
               $scope.photos = response.data;
@@ -37,6 +39,53 @@
               $scope.merge();
             });
 
+            } else {
+
+                //make a call to db to get all photos for current day
+                // Photo.getAllAuthenticated().then(function(response){
+                //   $scope.photos = response.data;
+                // });
+                console.log('authenticated');
+                //make a call to db to get all messages for current day
+                Message.getAllAuthenticated().then(function(response){
+                  console.log(response);
+                  $scope.messages = response.data;
+                  $scope.merge();
+                });
+            }
+
+            //when a message is liked
+            $scope.like = function(update){
+              console.log('update that is being liked', update);
+              //emit to db to update the count of likes for that message
+              update.liked = 'yes';
+               $scope.messageLiked($rootScope.rootuser.id, update.id);
+            };
+
+            //function to emit when a message is liked
+            $scope.messageLiked = function(userId, messageId){
+              console.log('emmitting message liked with user id and message id' + userId +', ' + messageId);
+              socket.emit('messageLiked', {userId: userId, messageId: messageId});
+            };
+
+            //when a message has been liked
+            socket.on('newLike', function(data){
+              //gets back the entire message, including id and new likes count
+              console.log('newlike from sockets', data);
+              //find that message from within updates
+
+              //reset it's likes to a new count
+              $scope.$apply(function(){
+                for(var i = 0; i < $scope.updates.length; i++){
+                  if($scope.updates[i].id === data.messageId){$scope.updates[i].likes = data.likes;}
+                }
+                // newUpdate.content = likedUpdate.content;
+                // newUpdate.id = likedUpdate.id;
+                // newUpdate.liked = 'yes';
+                // $scope.updates.splice($scope.updates.indexOf(likedUpdate,1));
+                // $scope.updates.unshift(newUpdate);
+              });
+            });
 
             //check to see if rootuser is in the spotlight
             User.isSpotlightOn().then(function(response){
@@ -45,6 +94,7 @@
               $scope.validated = (response.data.validated) ? true : false;
               if($scope.validated){$scope.confirmed = false;}
             });
+
 
             //validate the winner's password
             $scope.validate = function(){
@@ -74,7 +124,7 @@
             };
 
             //select a lottery winner on load
-            $scope.runLottery();
+            if($rootScope.rootuser){$scope.runLottery();}
 
             //set winner as spotlight
             $scope.selectWinner = function(id){

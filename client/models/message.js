@@ -9,6 +9,16 @@
       return $http.get('/messages');
     }
 
-    return {getAll: getAll};
+    function getAllAuthenticated(){
+      return $http.get('/messages/authenticated');
+    }
+
+
+    function like(updateId){
+      console.log('the id of the update being liked', updateId);
+      return $http.post('/messages/like', {updateId: updateId});
+    }
+
+    return {getAll: getAll, getAllAuthenticated: getAllAuthenticated, like: like};
   }]);
 })();

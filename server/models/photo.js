@@ -20,13 +20,55 @@ Photo.query = function(cb){
       //console.log('results2 from photos query', results2.rows);
       var photos =  _.map(results2.rows, function(obj){
         /*jshint camelcase: false */
-        return {time: obj.created_at, url: obj.url, id: obj.id};
+        return {time: obj.created_at, url: obj.url, id: obj.id, likes: obj.likes};
       });
       cb(null, photos);
     });
   });
 };
 
+Photo.queryAuth = function(user, cb){
+  //find id of most recent day
+  pg.query('select * from days order by created_at desc limit 1', [], function(err, results){
+    //console.log('results from message query', results);
+    //use day id to collect all messages in descending order
+    pg.query('select * from messages where day_id= $1 order by created_at desc', [results.rows[0].id], function(err2, results2){
+      //console.log('results2 from message query', results2.rows);
+      var messages =  _.map(results2.rows, function(obj){
+        /*jshint camelcase: false */
+        return {time: obj.created_at, content: obj.content, id: obj.id, likes: obj.likes};
+      });
+      console.log('messages collected', messages);
+      //get ids of messages that the current user has liked
+      pg.query('select * from likes where day_id= $1 and user_id= $2', [results.rows[0].id, user.id], function(err3, results3){
+        console.log('ids of messages that user has liked', results3.rows);
+        if(results3.rows.length === 0){return cb(null, messages);}
+        var likedMessages = results3.rows,
+        newArray = [];
+        likedMessages.forEach(function(obj){
+          for(var i = 0; i < messages.length; i++){
+            if(obj.message_id === messages[i].id){
+              delete obj.user_id;
+              delete obj.day_id;
+              delete obj.message_id;
+              obj.time = messages[i].time;
+              obj.content = messages[i].content;
+              obj.id = messages[i].id;
+              obj.likes = messages[i].likes;
+              obj.liked = 'yes';
+              messages[i].id = null;
+              newArray.push(obj);
+            } else if(obj.id !== messages[i].id && obj.message_id !== messages[i].id){newArray.push(messages[i]);} else { return;}
+            }
+          });
+          var finalArray = _.uniq(newArray);
+          finalArray = _.filter(finalArray, function(item){return item.id !== null;});
+          console.log('finalArray', finalArray);
+          cb(null, finalArray);
+        });
+      });
+    });
+  };
 
 Photo.uploadmobile = function(user, b64, cb){
   //implement secure spotlight check

@@ -5,4 +5,5 @@ module.exports = function(socket){
   socket.on('globalChat', require('./globalChat'));
   socket.on('globalImage', require('./globalImage'));
   socket.on('spotlightChosen', require('./spotlightNotification'));
+  socket.on('messageLiked', require('./mLike'));
 };
