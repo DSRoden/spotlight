@@ -123,7 +123,8 @@ Photo.uploadmobile = function(user, b64, cb){
         var imageId = results.rows[0].id,
         imageUrl = results.rows[0].url,
         time = results.rows[0].created_at,
-        imageObj = {time: time, url: imageUrl, id: imageId};
+        likes = results.rows[0].likes,
+        imageObj = {time: time, url: imageUrl, id: imageId, likes: likes};
         console.log('image object inside model', imageObj);
 
         var bin    = new Buffer(b64, 'base64'),
