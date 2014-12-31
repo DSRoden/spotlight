@@ -86,11 +86,13 @@ Photo.like = function(data, cb){
           console.log('error in updated in message likes', err);
           return cb();
         }
+        console.log('response from images like', response);
         pg.query('insert into ilikes (user_id, image_id, day_id) values($1, $2, $3)', [data.userId, data.imageId, res2.rows[0].id], function(err2, response2){
           if(err2){
             console.log('error in inserting into likes table', err2);
             return cb();
           }
+          console.log('response2 from images like', response2);
           cb({likes: response.rows[0].likes, id: data.imageId});
         });
       });
