@@ -86,7 +86,7 @@ Photo.like = function(data, cb){
           console.log('error in updated in message likes', err);
           return cb();
         }
-        pg.query('insert into ilikes (user_id, message_id, day_id) values($1, $2, $3)', [data.userId, data.imageId, res2.rows[0].id], function(err2, response2){
+        pg.query('insert into ilikes (user_id, image_id, day_id) values($1, $2, $3)', [data.userId, data.imageId, res2.rows[0].id], function(err2, response2){
           if(err2){
             console.log('error in inserting into likes table', err2);
             return cb();
