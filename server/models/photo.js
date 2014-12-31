@@ -32,7 +32,7 @@ Photo.queryAuth = function(user, cb){
   pg.query('select * from days order by created_at desc limit 1', [], function(err, results){
     //console.log('results from message query', results);
     //use day id to collect all messages in descending order
-    pg.query('select * from photos where day_id= $1 order by created_at desc', [results.rows[0].id], function(err2, results2){
+    pg.query('select * from images where day_id= $1 order by created_at desc', [results.rows[0].id], function(err2, results2){
       //console.log('results2 from message query', results2.rows);
       var images =  _.map(results2.rows, function(obj){
         /*jshint camelcase: false */
@@ -40,7 +40,7 @@ Photo.queryAuth = function(user, cb){
       });
       console.log('images collected', images);
       //get ids of photos that the current user has liked
-      pg.query('select * from ilikes where day_id= $1 and user_id= $2 and photo_id= $3', [results.rows[0].id, user.id], function(err3, results3){
+      pg.query('select * from ilikes where day_id= $1 and user_id= $2 and image_id= $3', [results.rows[0].id, user.id], function(err3, results3){
         console.log('ids of photos that user has liked', results3.rows);
         if(results3.rows.length === 0){return cb(null, images);}
         var likedPhotos = results3.rows,
