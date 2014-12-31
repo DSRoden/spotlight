@@ -58,8 +58,13 @@
             $scope.like = function(update){
               console.log('update that is being liked', update);
               //emit to db to update the count of likes for that message
-              update.liked = 'yes';
-               $scope.messageLiked($rootScope.rootuser.id, update.id);
+               update.liked = 'yes';
+               if(update.content){
+                $scope.messageLiked($rootScope.rootuser.id, update.id);
+               } else if(update.url){
+                $scope.imageLiked($rootScope.rootuser.id, update.id);
+               }
+
             };
 
             //function to emit when a message is liked
@@ -68,22 +73,21 @@
               socket.emit('messageLiked', {userId: userId, messageId: messageId});
             };
 
+            //function to emit when a message is liked
+            $scope.imageLiked = function(userId, imageId){
+              console.log('emmitting message liked with user id and message id' + userId +', ' + imageId);
+              socket.emit('messageLiked', {userId: userId, imageId: imageId});
+            };
+
             //when a message has been liked
             socket.on('newLike', function(data){
               //gets back the entire message, including id and new likes count
               console.log('newlike from sockets', data);
-              //find that message from within updates
-
               //reset it's likes to a new count
               $scope.$apply(function(){
                 for(var i = 0; i < $scope.updates.length; i++){
-                  if($scope.updates[i].id === data.messageId){$scope.updates[i].likes = data.likes;}
+                  if($scope.updates[i].id === data.id){$scope.updates[i].likes = data.likes;}
                 }
-                // newUpdate.content = likedUpdate.content;
-                // newUpdate.id = likedUpdate.id;
-                // newUpdate.liked = 'yes';
-                // $scope.updates.splice($scope.updates.indexOf(likedUpdate,1));
-                // $scope.updates.unshift(newUpdate);
               });
             });
 

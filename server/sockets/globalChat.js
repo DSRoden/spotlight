@@ -14,6 +14,7 @@ module.exports = function(data){
         //console.log('message saved, emitting now', response);
         data.time = response.time;
         data.id = response.id;
+        data.likes = response.likes;
         console.log('data being returned from socket message', data);
         socket.emit('bGlobalChat', data);
         socket.broadcast.emit('bGlobalChat', data);

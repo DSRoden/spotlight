@@ -1,5 +1,5 @@
-create table likes(
+create table ilikes(
   user_id integer not null references users(id),
-  message_id integer not null references messages(id),
+  image_id integer references images(id),
   day_id integer not null references days(id)
 );

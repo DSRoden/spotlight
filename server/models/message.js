@@ -10,13 +10,14 @@ function Message(){
 Message.record = function(obj, cb){
   //console.log('obj for create', obj);
   /*jshint camelcase: false */
-  pg.query('insert into messages (content, user_id, day_id) values ($1, $2, $3) returning id, created_at', [obj.content, obj.userId, obj.dayId], function(err, results){
+  pg.query('insert into messages (content, user_id, day_id) values ($1, $2, $3) returning id, created_at, likes', [obj.content, obj.userId, obj.dayId], function(err, results){
     if(err){console.log(err); return cb();}
     console.log('results from message recording and chat', results);
     /*jshint camelcase: false */
     var time = results.rows[0].created_at,
-        id = results.rows[0].id;
-    cb({time : time, id : id});
+        id = results.rows[0].id,
+        likes = results.rows[0].likes;
+    cb({time : time, id : id, likes: likes});
   });
 };
 
@@ -50,7 +51,7 @@ Message.queryAuth = function(user, cb){
       });
       console.log('messages collected', messages);
       //get ids of messages that the current user has liked
-      pg.query('select * from likes where day_id= $1 and user_id= $2', [results.rows[0].id, user.id], function(err3, results3){
+      pg.query('select * from mlikes where day_id= $1 and user_id= $2', [results.rows[0].id, user.id], function(err3, results3){
         console.log('ids of messages that user has liked', results3.rows);
         if(results3.rows.length === 0){return cb(null, messages);}
         var likedMessages = results3.rows,
@@ -86,7 +87,7 @@ Message.like = function(data, cb){
   //console.log('data being received by message.like in message model >>>>', data);
   //data.userId and data.messageId
   var increment = 1;
-  pg.query('select * from likes where user_id= $1 and message_id= $2 limit 1', [data.userId, data.messageId], function(err, res){
+  pg.query('select * from mlikes where user_id= $1 and message_id= $2 limit 1', [data.userId, data.messageId], function(err, res){
     //console.log('response from checking to see if a user has liked a message in the past>>>', res);
     console.log('error from checking to see if a user has liked a message in the past>>>', res);
     if(res.rows.length !== 0){return cb();}
@@ -97,12 +98,12 @@ Message.like = function(data, cb){
           console.log('error in updated in message likes', err);
           return cb();
         }
-        pg.query('insert into likes (user_id, message_id, day_id) values($1, $2, $3)', [data.userId, data.messageId, res2.rows[0].id], function(err2, response2){
+        pg.query('insert into mlikes (user_id, message_id, day_id) values($1, $2, $3)', [data.userId, data.messageId, res2.rows[0].id], function(err2, response2){
           if(err2){
             console.log('error in inserting into likes table', err2);
             return cb();
           }
-          cb({likes: response.rows[0].likes, messageId: data.messageId});
+          cb({likes: response.rows[0].likes, id: data.messageId});
         });
       });
     });
