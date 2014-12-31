@@ -12,6 +12,7 @@ module.exports = [
   {method: 'post',   path: '/spotlight',             config: require('../definitions/users/spotlight_validate')},
   {method: 'get',    path: '/messages',              config: require('../definitions/messages/query')},
   {method: 'get',    path: '/messages/authenticated',config: require('../definitions/messages/query_auth')},
+  {method: 'get',    path: '/messages/authenticated',config: require('../definitions//query_auth')},
   {method: 'post',   path: '/photos',                config: require('../definitions/photos/upload_photos')},
   {method: 'get',    path: '/photos',                config: require('../definitions/photos/query')},
   {method: 'post',   path: '/notes',                 config: require('../definitions/notes/create')},
