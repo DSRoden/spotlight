@@ -36,7 +36,7 @@ Photo.queryAuth = function(user, cb){
       //console.log('results2 from message query', results2.rows);
       var images =  _.map(results2.rows, function(obj){
         /*jshint camelcase: false */
-        return {time: obj.created_at, content: obj.content, id: obj.id, likes: obj.likes};
+        return {time: obj.created_at, url: obj.url, id: obj.id, likes: obj.likes};
       });
       console.log('images collected', images);
       //get ids of photos that the current user has liked
