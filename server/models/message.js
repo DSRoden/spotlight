@@ -12,7 +12,7 @@ Message.record = function(obj, cb){
   /*jshint camelcase: false */
   pg.query('insert into messages (content, user_id, day_id) values ($1, $2, $3) returning id, created_at, likes', [obj.content, obj.userId, obj.dayId], function(err, results){
     if(err){console.log(err); return cb();}
-    console.log('results from message recording and chat', results);
+    //console.log('results from message recording and chat', results);
     /*jshint camelcase: false */
     var time = results.rows[0].created_at,
         id = results.rows[0].id,
@@ -49,10 +49,10 @@ Message.queryAuth = function(user, cb){
         /*jshint camelcase: false */
         return {time: obj.created_at, content: obj.content, id: obj.id, likes: obj.likes};
       });
-      console.log('messages collected', messages);
+      //console.log('messages collected', messages);
       //get ids of messages that the current user has liked
       pg.query('select * from mlikes where day_id= $1 and user_id= $2', [results.rows[0].id, user.id], function(err3, results3){
-        console.log('ids of messages that user has liked', results3.rows);
+        //console.log('ids of messages that user has liked', results3.rows);
         if(results3.rows.length === 0){return cb(null, messages);}
         var likedMessages = results3.rows,
             newArray = [];
@@ -74,7 +74,7 @@ Message.queryAuth = function(user, cb){
             });
         var finalArray = _.uniq(newArray);
         finalArray = _.filter(finalArray, function(item){return item.id !== null;});
-        console.log('finalArray', finalArray);
+        //console.log('finalArray', finalArray);
         cb(null, finalArray);
       });
     });

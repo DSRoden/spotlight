@@ -43,6 +43,7 @@
 
                 //make a call to db to get all photos for current day
                 Photo.getAllAuthenticated().then(function(response){
+                  console.log('response from photos auth', response);
                   $scope.photos = response.data;
                 });
                 console.log('authenticated');

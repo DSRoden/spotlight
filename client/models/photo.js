@@ -10,6 +10,7 @@
     }
 
     function getAllAuthenticated(){
+      console.log('getting authenticated photos');
       return $http.get('/photos/authenticated');
     }
 
