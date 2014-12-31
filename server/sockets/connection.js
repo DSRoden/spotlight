@@ -6,4 +6,5 @@ module.exports = function(socket){
   socket.on('globalImage', require('./globalImage'));
   socket.on('spotlightChosen', require('./spotlightNotification'));
   socket.on('messageLiked', require('./mLike'));
+  socket.on('imageLiked', require('./iLike'));
 };
