@@ -15,6 +15,8 @@ module.exports = [
   {method: 'post',   path: '/photos',                config: require('../definitions/photos/upload_photos')},
   {method: 'get',    path: '/photos',                config: require('../definitions/photos/query')},
   {method: 'get',    path: '/photos/authenticated',  config: require('../definitions/photos/query_auth')},
+  {method: 'get',    path: '/days',                  config: require('../definitions/days/query')},
+  {method: 'post',   path: '/day',                   config: require('../definitions/days/show_day')},
   {method: 'post',   path: '/notes',                 config: require('../definitions/notes/create')},
   {method: 'get',    path: '/notes',                 config: require('../definitions/notes/query')},
   {method: 'post',   path: '/notes/{noteId}/upload', config: require('../definitions/notes/upload')},

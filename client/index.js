@@ -10,6 +10,8 @@
         .state('register',     {url:'/register', templateUrl:'/views/users/users.html',        controller:'UsersCtrl'})
         .state('login',        {url:'/login',    templateUrl:'/views/users/users.html',        controller:'UsersCtrl'})
         .state('spotlight',    {url:'/spotlight', templateUrl:'/views/spotlight/spotlight.html',        controller:'SpotlightCtrl'})
+        .state('days',         {url:'/archive',    templateUrl:'/views/days/days.html',                 abstract: true})
+        .state('days.list',     {url:'',    templateUrl:'/views/days/days_list.html',    controller: 'DaysListCtrl'})
         .state('notes',        {url:'/notes',    templateUrl:'/views/notes/notes.html',        abstract:true})
         .state('notes.list',   {url:'?tag&page', templateUrl:'/views/notes/notes_list.html',   controller:'NotesListCtrl'})
         .state('notes.detail', {url:'/{noteId}', templateUrl:'/views/notes/notes_detail.html', controller:'NotesDetailCtrl'});

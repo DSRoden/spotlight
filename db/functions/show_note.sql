@@ -4,14 +4,14 @@ declare
 begin
 
   return query
-    select n.id, n.title, n.body, n.updated_at, array_agg(distinct t.name), array_agg(distinct p.url)
-    from notes n
-    left outer join photos p on n.id = p.note_id
-    inner join notes_tags nt on n.id = nt.note_id
-    inner join tags t on t.id = nt.tag_id
-    inner join users u on u.id = n.user_id
-    where n.id = nid and u.id = uid
-    group by n.id;
+    select d.id, d.created_at, array_agg(distinct u.username), array_agg(m), array_agg(i)
+    from days d
+    inner join users u on u.id = d.user_id
+    inner join messages m on m.day_id = d.id
+    left outer join images i on i.day_id = d.id
+    where d.id = 66
+    group by d.id;
+
 
 end;
 $$ language plpgsql;
