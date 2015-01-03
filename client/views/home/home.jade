@@ -1,6 +1,3 @@
-h1 HOME
-
-
 .row(ng-if="confirmed")
   .spotlight You are the winner! Take the spotlight by entering today's password: 
   input#spotlightpass(type='password', ng-model='spotlight.password')
@@ -15,25 +12,27 @@ h1 HOME
           img(ng-src="{{update.url}}")
         .content {{update.content}}
             
-
 .row(ng-if="validated")
   input#message(type='text', ng-model='message.content')
   button.success.tiny.radius(ng-click='chat(message.content)') Send Message
             
 .row(ng-if="showAdmin")
-  .winner Today's winner id: {{winner.id}}
-  .button.winner-info(ng-click="winnerInfo()") Winner Info
-  .button.runLottery(ng-click="runLottery()") Run Lottery Again
-  .button.selectWinner(ng-click="selectWinner(winner.id)") Add as Spotlight and Notify
-  //.button.notifyWinner(ng-click="notifyWinner(winner.id)") Notify
+  .dasboard-buttons
+    br
+    //-.winner Today's winner id: {{winner.id}}
+    .button.winner-info(ng-click="winnerInfo()") Winner Info
+    .button.runLottery(ng-click="runLottery()") Run Lottery Again
+    .button.selectWinner(ng-click="selectWinner(winner.id)") Add as Spotlight and Notify
+    //.button.notifyWinner(ng-click="notifyWinner(winner.id)") Notify
 
 .row(ng-if="showWinner")
-  h5 Winner's name: {{winner.username}}
-  h5 Winner's email: {{winner.email}}
-  h5 Winner's phone: {{winner.phone}}
+  .winner-information
+    h5 Winner's name: {{winner.username}}
+    h5 Winner's email: {{winner.email}}
+    h5 Winner's phone: {{winner.phone}}
 
 .row(ng-if="!validated")
-    h3 Global Chat
+    h3.spotlight-stream-header SPOTLIGHT STREAM
       #messages.panel.callout.radius
         .updates(ng-repeat="update in updates | orderBy: 'time': true", ng-class="{message : update.content}")
           .photo(ng-if="update.url")

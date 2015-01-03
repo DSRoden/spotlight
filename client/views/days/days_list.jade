@@ -1,23 +1,25 @@
-h1 Archive
-
+br
+br
 .row
   .small-4.columns
-    h3 Days
-    #days
-      .date Date
-      .days(ng-repeat="day in days")
-        .day(ng-click="showDay(day.id)") {{day.created_at | date : 'MM/dd/yyyy'}}
+    .days-title
+      h3 Days
+      #days
+        .date Date
+        .days(ng-repeat="day in days")
+          .day(ng-click="showDay(day.id)") {{day.created_at | date : 'MM/dd/yyyy'}}
 
         
   .small-8.columns(ng-if="day")
-    h3 Spotlight Stream from {{dayDetail.created_at | date : 'MM/dd/yyyy'}}
-    span Total Boosts: {{dayDetail.likes}}
-    #messages.panel.callout.radius
-      .updates(ng-repeat="update in dayDetail.updates | orderBy: 'time': true", ng-class="{message : update.content}")
-        .photo(ng-if="update.url")
-          img.th(ng-src='{{update.url}}')
-          likes(ng-if="update.likes") Likes {{update.likes}}
-        .content {{update.content}}
-          likes(ng-if="update.likes") Likes {{update.likes}}
-          
-  
+    .day-recap
+      h3 Spotlight Stream from {{dayDetail.created_at | date : 'MM/dd/yyyy'}}
+      span Total Boosts: {{dayDetail.likes}}
+      #messages.panel.callout.radius
+        .updates(ng-repeat="update in dayDetail.updates | orderBy: 'time': true", ng-class="{message : update.content}")
+          .photo(ng-if="update.url")
+            img.th(ng-src='{{update.url}}')
+            likes(ng-if="update.likes") Boosts {{update.likes}}
+          .content {{update.content}}
+            likes(ng-if="update.likes") Boosts {{update.likes}}
+            
+    
