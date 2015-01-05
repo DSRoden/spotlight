@@ -36,7 +36,7 @@
       #messages.panel.callout.radius
         .updates(ng-repeat="update in updates | orderBy: 'time': true", ng-class="{message : update.content}")
           .photo(ng-if="update.url")
-             img.th.roatateit(ng-src='{{update.url}}')
+             img.th.rotateit(ng-src='{{update.url}}')
              likes(ng-if="update.likes") Likes {{update.likes}}
              like(ng-click="like(update)", ng-class="{liked: update.liked, notliked: !update.liked}") like
           .content {{update.content}}
