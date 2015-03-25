@@ -1,0 +1,131 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/node/bin/node',
+1 verbose cli   '/usr/local/node/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 warn package.json notetaker@1.0.0 No README data
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ '/Users/PlaceFields/Documents/code/spotlight',
+6 verbose install   [ 'async',
+6 verbose install     'aws-sdk',
+6 verbose install     'bcrypt',
+6 verbose install     'bower',
+6 verbose install     'concat-stream',
+6 verbose install     'crypto',
+6 verbose install     'good',
+6 verbose install     'good-console',
+6 verbose install     'grunt',
+6 verbose install     'grunt-cli',
+6 verbose install     'grunt-contrib-clean',
+6 verbose install     'grunt-contrib-copy',
+6 verbose install     'grunt-contrib-jade',
+6 verbose install     'grunt-contrib-jshint',
+6 verbose install     'grunt-contrib-less',
+6 verbose install     'grunt-contrib-watch',
+6 verbose install     'grunt-deploy',
+6 verbose install     'grunt-jscs',
+6 verbose install     'grunt-shell',
+6 verbose install     'hapi',
+6 verbose install     'hapi-auth-cookie',
+6 verbose install     'joi',
+6 verbose install     'jshint-stylish',
+6 verbose install     'lout',
+6 verbose install     'mailgun-js',
+6 verbose install     'pg',
+6 verbose install     'request',
+6 verbose install     'socket.io',
+6 verbose install     'twilio',
+6 verbose install     'underscore' ] ]
+7 info preinstall notetaker@1.0.0
+8 warn package.json crypto@0.0.3 crypto is also the name of a node core module.
+9 verbose readDependencies using package.json deps
+10 verbose already installed skipping async@^0.9.0 /Users/PlaceFields/Documents/code/spotlight
+11 verbose already installed skipping aws-sdk@^2.0.28 /Users/PlaceFields/Documents/code/spotlight
+12 verbose already installed skipping bcrypt@^0.8.0 /Users/PlaceFields/Documents/code/spotlight
+13 verbose already installed skipping bower@^1.3.12 /Users/PlaceFields/Documents/code/spotlight
+14 verbose already installed skipping concat-stream@^1.4.7 /Users/PlaceFields/Documents/code/spotlight
+15 verbose already installed skipping crypto@0.0.3 /Users/PlaceFields/Documents/code/spotlight
+16 verbose already installed skipping good@^4.0.0 /Users/PlaceFields/Documents/code/spotlight
+17 verbose already installed skipping good-console@^2.0.1 /Users/PlaceFields/Documents/code/spotlight
+18 verbose already installed skipping grunt@^0.4.5 /Users/PlaceFields/Documents/code/spotlight
+19 verbose already installed skipping grunt-cli@^0.1.13 /Users/PlaceFields/Documents/code/spotlight
+20 verbose already installed skipping grunt-contrib-clean@^0.6.0 /Users/PlaceFields/Documents/code/spotlight
+21 verbose already installed skipping grunt-contrib-copy@^0.7.0 /Users/PlaceFields/Documents/code/spotlight
+22 verbose already installed skipping grunt-contrib-jade@^0.13.0 /Users/PlaceFields/Documents/code/spotlight
+23 verbose already installed skipping grunt-contrib-jshint@^0.10.0 /Users/PlaceFields/Documents/code/spotlight
+24 verbose already installed skipping grunt-contrib-less@^0.12.0 /Users/PlaceFields/Documents/code/spotlight
+25 verbose already installed skipping grunt-contrib-watch@^0.6.1 /Users/PlaceFields/Documents/code/spotlight
+26 verbose already installed skipping grunt-deploy@^0.1.7 /Users/PlaceFields/Documents/code/spotlight
+27 verbose already installed skipping grunt-jscs@^0.8.1 /Users/PlaceFields/Documents/code/spotlight
+28 verbose already installed skipping grunt-shell@^1.1.1 /Users/PlaceFields/Documents/code/spotlight
+29 verbose already installed skipping hapi@^7.5.2 /Users/PlaceFields/Documents/code/spotlight
+30 verbose already installed skipping hapi-auth-cookie@^1.4.0 /Users/PlaceFields/Documents/code/spotlight
+31 verbose already installed skipping joi@^4.9.0 /Users/PlaceFields/Documents/code/spotlight
+32 verbose already installed skipping jshint-stylish@^1.0.0 /Users/PlaceFields/Documents/code/spotlight
+33 verbose already installed skipping lout@^5.1.2 /Users/PlaceFields/Documents/code/spotlight
+34 verbose already installed skipping mailgun-js@^0.6.7 /Users/PlaceFields/Documents/code/spotlight
+35 verbose already installed skipping pg@^4.0.0 /Users/PlaceFields/Documents/code/spotlight
+36 verbose already installed skipping request@^2.49.0 /Users/PlaceFields/Documents/code/spotlight
+37 verbose already installed skipping socket.io@^1.2.1 /Users/PlaceFields/Documents/code/spotlight
+38 verbose already installed skipping twilio@^1.10.0 /Users/PlaceFields/Documents/code/spotlight
+39 verbose already installed skipping underscore@^1.7.0 /Users/PlaceFields/Documents/code/spotlight
+40 silly resolved []
+41 info build /Users/PlaceFields/Documents/code/spotlight
+42 verbose linkStuff [ false, false, false, '/Users/PlaceFields/Documents/code' ]
+43 info linkStuff notetaker@1.0.0
+44 verbose linkBins notetaker@1.0.0
+45 verbose linkMans notetaker@1.0.0
+46 verbose rebuildBundles notetaker@1.0.0
+47 verbose rebuildBundles [ '.bin',
+47 verbose rebuildBundles   'async',
+47 verbose rebuildBundles   'aws-sdk',
+47 verbose rebuildBundles   'bcrypt',
+47 verbose rebuildBundles   'bower',
+47 verbose rebuildBundles   'concat-stream',
+47 verbose rebuildBundles   'crypto',
+47 verbose rebuildBundles   'good',
+47 verbose rebuildBundles   'good-console',
+47 verbose rebuildBundles   'grunt',
+47 verbose rebuildBundles   'grunt-cli',
+47 verbose rebuildBundles   'grunt-contrib-clean',
+47 verbose rebuildBundles   'grunt-contrib-copy',
+47 verbose rebuildBundles   'grunt-contrib-jade',
+47 verbose rebuildBundles   'grunt-contrib-jshint',
+47 verbose rebuildBundles   'grunt-contrib-less',
+47 verbose rebuildBundles   'grunt-contrib-watch',
+47 verbose rebuildBundles   'grunt-deploy',
+47 verbose rebuildBundles   'grunt-jscs',
+47 verbose rebuildBundles   'grunt-shell',
+47 verbose rebuildBundles   'hapi',
+47 verbose rebuildBundles   'hapi-auth-cookie',
+47 verbose rebuildBundles   'joi',
+47 verbose rebuildBundles   'jshint-stylish',
+47 verbose rebuildBundles   'lout',
+47 verbose rebuildBundles   'mailgun-js',
+47 verbose rebuildBundles   'pg',
+47 verbose rebuildBundles   'request',
+47 verbose rebuildBundles   'socket.io',
+47 verbose rebuildBundles   'twilio',
+47 verbose rebuildBundles   'underscore' ]
+48 info install notetaker@1.0.0
+49 info postinstall notetaker@1.0.0
+50 verbose unsafe-perm in lifecycle true
+51 info notetaker@1.0.0 Failed to exec postinstall script
+52 error notetaker@1.0.0 postinstall: `grunt deploy`
+52 error Exit status 6
+53 error Failed at the notetaker@1.0.0 postinstall script.
+53 error This is most likely a problem with the notetaker package,
+53 error not with npm itself.
+53 error Tell the author that this fails on your system:
+53 error     grunt deploy
+53 error You can get their info via:
+53 error     npm owner ls notetaker
+53 error There is likely additional logging output above.
+54 error System Darwin 14.0.0
+55 error command "/usr/local/node/bin/node" "/usr/local/node/bin/npm" "install"
+56 error cwd /Users/PlaceFields/Documents/code/spotlight
+57 error node -v v0.10.32
+58 error npm -v 1.4.28
+59 error code ELIFECYCLE
+60 verbose exit [ 1, true ]
