@@ -1,0 +1,12 @@
+
+row(ng-if="day")
+  h3 Spotlight Stream from {{dayDetail.created_at | date : 'MM/dd/yyyy'}}
+  span Total Boosts: {{dayDetail.likes}}
+  #messages.panel.callout.radius
+    .updates(ng-repeat="update in dayDetail.updates | orderBy: 'time': true", ng-class="{message : update.content}")
+      .photo(ng-if="update.url")
+        img.th(ng-src='{{update.url}}')
+        likes(ng-if="update.likes") Likes {{update.likes}}
+       .content {{update.content}}
+         likes(ng-if="update.likes") Likes {{update.likes}}
+
