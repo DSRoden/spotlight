@@ -3,12 +3,12 @@ fa-view
     fa-scroll-view#home(fa-pipe-from='eventHandler', fa-options='options.scrollViewTwo', fa-start-index='0')
 
         //- this is the Spotlight View         
-        fa-view(fa-index='0', fa-options='options.scrollViewOne')
+        fa-view(fa-size="[320, 568]" fa-index='0', fa-options='options.scrollViewOne')
           fa-surface(fa-pipe-to='eventHandler')
             fa-app(onScroll="scrolling()")
                 fa-view
-                  fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
-                    fa-surface(fa-size='[getPageWidth(), 15]').phone-top-bar
+                  fa-modifier(fa-size="[320, 568]")
+                    fa-surface(fa-size='[320, 15]').phone-top-bar
                     fa-header-footer-layout(fa-options='{headerSize: 60, footerSize: 50}')
                         //- header
                         fa-modifier(fa-translate="boxTransitionableHeader.get()")
@@ -23,16 +23,16 @@ fa-view
                         fa-surface
                           fa-app(ng-controller='HomeCtrl')
                             fa-scroll-view#main-scrollview(fa-pipe-from='myEventHandler' fa-options='options.container')
-                              fa-view(fa-size='[getPageWidth(), mainScrollHeight]')
+                              fa-view(fa-size='[320, mainScrollHeight]')
                                 fa-modifier(ng-repeat='post in posts track by $index')
-                                  fa-surface.relative-image(ng-if="post.image_url" fa-size='[(getPageWidth() - 19), 300]' ng-class="{connect : post.text, commentShadow : !post.text}")
-                                    .image(ng-click="showComments(post.id)" ng-style="{'background-image':'url({{post.image_url}})', 'height': '285px',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='myEventHandler')
+                                  fa-surface.relative-image(ng-if="post.image_url" fa-size='[(320 - 19), 300]' ng-class="{connect : post.text, commentShadow : !post.text}")
+                                    .image(ng-click="showComments(post.id)" ng-style="{'background-image':'url({{post.image_url}})', 'height': '285px',  'width': '{{320}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='myEventHandler')
                                       fa-app(ng-if="!post.text")
                                         fa-surface.content-date {{moment(post.created_at).format('LT')}}
                                         fa-surface.comments-icon(fa-size='[100,30]' ng-click="commentsModal(post)") Comments {{post.comments}}
                                         fa-image-surface.heart(fa-image-url="img/heart.png" fa-size='[20,20]' ng-click="like(post)")
                                         fa-surface.likes-image {{post.likes}}
-                                  fa-surface.relative-text.commentShadow(ng-if="post.text" fa-background-color="white" fa-size='[(getPageWidth() - 19), 200]' ng-class="{connectTop : post.image_url}")
+                                  fa-surface.relative-text.commentShadow(ng-if="post.text" fa-background-color="white" fa-size='[(320 - 19), 200]' ng-class="{connectTop : post.image_url}")
                                     .content(fa-pipe-to="myEventHandler")
                                       //- .open-quote
                                       fa-app
@@ -58,12 +58,12 @@ fa-view
               fa-modifier(fa-translate="boxTransitionableSpotlightPost.get()" fa-opacity="postboxTransparency" fa-size="postboxSize.get()")
                 fa-surface.post-box-background
                   //- textarea(ng-model="post.message"  placeholder="  Share something with the world." ng-style="{'width' : '100%', 'height': '{{textareaHeight()}}', 'border' : 'none', 'border-radius' : '10px', 'background': 'rgb(234, 233, 233)'}")
-                  //- .new-image-area(ng-style="{'background-image':'url({{addImageUrl}})', 'height': '{{addImageHeight()}}',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center', 'margin-top' : '10px'}")
+                  //- .new-image-area(ng-style="{'background-image':'url({{addImageUrl}})', 'height': '{{addImageHeight()}}',  'width': '{{320}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center', 'margin-top' : '10px'}")
                   fa-app 
                     fa-modifier(fa-translate="boxTransitionableSpotlightPost.get()" fa-opacity="postboxTransparency" fa-size="postboxSize.get()")
                       fa-surface.textbox-and-image-container
                         textarea.spotlight-textarea.card-format(ng-model="post.message"  placeholder="  Share something with the world." ng-style="{'width' : '94%', 'height': '{{textareaHeight()}}', 'background': 'white', 'font-size' : '16px', 'padding' : '10px'}")
-                        .new-image-area.card-format(ng-style="{'background-image':'url({{addImageUrl}})', 'height': '{{addImageHeight()}}',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center', 'margin-top' : '10px', 'background-color' : 'white'}")
+                        .new-image-area.card-format(ng-style="{'background-image':'url({{addImageUrl}})', 'height': '{{addImageHeight()}}',  'width': '{{320}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center', 'margin-top' : '10px', 'background-color' : 'white'}")
                           .delete-image(ng-style="{'height' : '30px', 'width': '30px', 'background-color' : 'rgba(0, 0, 0, 0.5)', 'color' : 'white', 'font-size' : '20px', 'font-family' : 'Helvetica', 'float' : 'right', 'text-align' : 'center', 'line-height' : '32px'}") X
                     fa-image-surface.make-post(ng-if="userIsInTheSpotlight" fa-size='[70,70]' fa-image-url="img/airplane-icon-yellow.png")
                     fa-image-surface.open-camera(ng-if="userIsInTheSpotlight" fa-size='[50, 50]' fa-image-url="img/camera-icon-yellow.png")
@@ -75,7 +75,7 @@ fa-view
             fa-app.top-slide-in-view
               fa-flipper
                 fa-modifier(fa-translate="boxTransitionableSpotlightAccount.get()" fa-opacity="accountBoxTransparency" fa-size="accountBoxSize.get()")
-                  fa-surface.information-card(fa-size='[(getPageWidth() - 10), {{informationCardHeight}}]')
+                  fa-surface.information-card(fa-size='[(320 - 10), {{informationCardHeight}}]')
                     fa-app.grid-container(ng-style="{'margin-left': '{{gridMarginLeft}}%', 'margin-top': '{{gridMarginTop}}px'}")
                       fa-modifier(fa-translate="boxTransitionableSpotlightAccount.get()" fa-opacity="accountBoxTransparency" fa-size="[200, 300]")
                         fa-grid-layout(fa-options="winnerInformationGrid")
@@ -87,13 +87,13 @@ fa-view
                     .go-back-to-main(ng-style="{'position' : 'relative', 'top' : '{{downArrowOnInfoView}}px'}")
                       .back-out-of-info(ng-click="closeAccountPage()")
 
-                fa-modifier(fa-translate="[0, 60, 0]" fa-size="[getPageWidth(), getPageHeight()]")
+                fa-modifier(fa-translate="[0, 60, 0]" fa-size="[320, 568]")
                   fa-surface.account-box-background
                     fa-app
-                      fa-surface.information-card(fa-size='[(getPageWidth() - 10), {{informationCardHeight}}]')
+                      fa-surface.information-card(fa-size='[(320 - 10), {{informationCardHeight}}]')
                         //- photo
                         .photo-info-container(ng-if="photoClicked" ng-style="{'padding' : '10px', 'margin-top' : '{{photoInfoContainerMarginTop}}px'}")
-                          .current-photo(ng-style="{'background-image':'url({{winner.avatar_url || winnerAvatarDefault}})', 'height': '200px',  'width': '{{getPageWidth()-20}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}")
+                          .current-photo(ng-style="{'background-image':'url({{winner.avatar_url || winnerAvatarDefault}})', 'height': '200px',  'width': '{{320-20}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}")
                           .photo-info-container-buttons(ng-style="{'position' : 'relative'}")
                             .replace-photo-camera(ng-style="{'left' : '{{cameraLeftMargin}}%'}")
                             .replace-photo-albums(ng-style="{'right' : '{{albumRightMargin}}%'}") 
@@ -120,7 +120,7 @@ fa-view
                           fa-app(ng-controller='HomeCtrl').scrolling
                             fa-scroll-view#tips-scrollview(fa-pipe-from='myEventHandler' fa-options='options.tipsContainer')
                               fa-view(ng-repeat='tip in spotlightTips track by $index' fa-size='[300, 800]')
-                                fa-modifier(fa-size='[getPageWidth(), 100]')
+                                fa-modifier(fa-size='[320, 100]')
                                   fa-surface.tip-item(fa-pipe-to='myEventHandler')
                                    .tip {{tip}}
 
@@ -133,7 +133,7 @@ fa-view
                 fa-surface.winner-info-background
                   .winner-info-card(ng-style="{'margin' : '5px', 'background' : 'white', 'padding' : '10px', 'border': '1px solid rgba(103, 98, 98, .2)', 'border-bottom' : '2px solid rgba(103, 98, 98, .6)', 'height' : '{{spotlightWinnerCardHeight}}px'}")
                     .winner-image(ng-style="{'position' : 'relative', 'margin-top' : '{{spotlightWinnerMarginTop}}px'}")
-                      .image(ng-style="{'background-image':'url({{winner.avatar_url}})', 'height': '200px',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='dayScrollEventHandler')
+                      .image(ng-style="{'background-image':'url({{winner.avatar_url}})', 'height': '200px',  'width': '{{320}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='dayScrollEventHandler')
                     .winner-bio(ng-style="{'position' : 'relative', 'margin-top' : '20px', 'padding' : '15px', 'margin' : '10px', 'font-size' : '16px', 'font-family' : 'Helvetica Neue'}") {{winner.bio}}
                     .arrow-container(ng-style="{'text-align' : 'center', 'margin-top' : '{{spotlightWinnerBackArrow}}px'}")
                       .go-back-to-main.back-arrow(ng-click="closeWinnerInfo()")
@@ -141,7 +141,7 @@ fa-view
             //- confirmation box
             fa-app.top-slide-in-view
               fa-modifier(fa-translate="boxTransitionableConfirmation.get()" fa-opacity="confirmationBoxTransparency" fa-size="confirmationBoxSize.get()")
-                fa-surface.information-card(fa-size='[(getPageWidth() - 10), {{informationCardHeight}}]')
+                fa-surface.information-card(fa-size='[(320 - 10), {{informationCardHeight}}]')
                   .confirmation-dialog-content
                     .confirmation-text Are you sure {{confirmation.text}}?
                     .confirmation-surface-buttons
@@ -153,7 +153,7 @@ fa-view
               fa-modifier(fa-translate="boxTransitionableRegistration.get()" fa-opacity="registrationBoxTransparency" fa-size="registrationBoxSize.get()")
                 fa-surface.registration-view-background.registration-z-index
                   fa-app.registration-view-background(ng-if="userNotSignedIn")
-                    fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="aboutTransparency")
+                    fa-modifier(fa-size="[320, 400]" fa-opacity="aboutTransparency")
                       fa-surface.registration-view-background(ng-if="about")
                         .about-container
                           .about-title Why Spotlight?
@@ -164,7 +164,7 @@ fa-view
                             span Spotlight is an attempt to create a simpler social network.
                             span Spotlight is an attempt to create a simpler social network.
                           .go-back-to-login(ng-click="closeAboutOne()") Back
-                    fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="loginTransparency")
+                    fa-modifier(fa-size="[320, 400]" fa-opacity="loginTransparency")
                       fa-surface.registration-view-background(ng-if="login" fa-tap="tapEvent($event)" fa-pipe-to="archiveScrollEventHandler") 
                         .login-container
                           .title Spotlight
@@ -179,7 +179,7 @@ fa-view
                             .question-mark(ng-click="showAboutOne($event);")
                             .go-left(ng-click="switchPage(0)")
                             .go-right(ng-click="closeRegistration()")
-                    fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="registerTransparency")             
+                    fa-modifier(fa-size="[320, 400]" fa-opacity="registerTransparency")             
                       fa-surface.registration-view-background(ng-if="register") 
                         .register-container
                           .slogan One person at a time
@@ -197,9 +197,9 @@ fa-view
                             .account-register(ng-click="showRegister()")  Register
             
         //- this is the Main Archive View
-        fa-view(fa-index='1')
-          fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
-            fa-surface(fa-size='[getPageWidth(), 15]').phone-top-bar
+        fa-view(fa-size='[320, 568]' fa-index='1')
+          fa-modifier(fa-size="[320, 568]")
+            fa-surface(fa-size='[320, 15]').phone-top-bar
             fa-header-footer-layout(fa-options='{headerSize: 60, footerSize: 50}')
                 // header
                 fa-modifier(fa-translate="boxTransitionableHeader2.get()")
@@ -215,8 +215,8 @@ fa-view
                 fa-surface(fa-pipe-to="eventHandler")
                   fa-app(ng-controller='HomeCtrl')
                     fa-scroll-view#archive-scrollview(fa-pipe-from='archiveScrollEventHandler' fa-options='options.container')
-                      fa-view(ng-repeat='archive in archivedDays' fa-size='[getPageWidth(), archiveScrollHeight]')
-                        fa-modifier(fa-size='[getPageWidth(), 100]')
+                      fa-view(ng-repeat='archive in archivedDays' fa-size='[320, archiveScrollHeight]')
+                        fa-modifier(fa-size='[320, 100]')
                           fa-surface.archive-item(fa-background-color='archive.color', fa-pipe-to='archiveScrollEventHandler')
                            .user-name(ng-if="archive.name" ng-click="goToArchivedDay(archive.id)" ) {{archive.name}}
                            .date(ng-if="archive.date" ng-click="goToArchivedDay(archive.id)") {{moment(archive.date).format('MMMM Do YYYY')}}
@@ -225,9 +225,9 @@ fa-view
                 fa-modifier(fa-translate="boxTransitionableFooter2.get()" fa-opacity="opacityTrans2" fa-size='[50,50]')
                   fa-image-surface.spotlight-icon(fa-image-url="img/left_arrow_yellow.png" ng-click="switchPage(0)")                 
 
-        fa-view(fa-index='2')
-          fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
-            fa-surface(fa-size='[getPageWidth(), 15]').phone-top-bar
+        fa-view( fa-size='[320, 568]' fa-index='2')
+          fa-modifier(fa-size='[320, 568]')
+            fa-surface(fa-size='[320, 15]').phone-top-bar
             fa-header-footer-layout(fa-options='{headerSize: 60, footerSize: 50}')
                 //- header
                 fa-modifier(fa-translate="boxTransitionableHeader3.get()")
@@ -242,16 +242,16 @@ fa-view
                 fa-surface(fa-pipe-to="eventHandler")
                   fa-app(ng-controller='HomeCtrl')
                     fa-scroll-view#day-scrollview(fa-pipe-from='dayScrollEventHandler' fa-options='options.container')
-                      fa-view(fa-size='[getPageWidth(), dayScrollHeight]')
+                      fa-view(fa-size='[320, dayScrollHeight]')
                         fa-modifier.top-border(ng-repeat='post in archivedDayPosts track by $index')
-                          fa-surface.relative-image(ng-if="post.image_url" fa-size='[(getPageWidth() -20), 300]' ng-class="{connect : post.text, commentShadow : !post.text}")
-                            .image(ng-click="showComments(post.id)" ng-style="{'background-image':'url({{post.image_url}})', 'height': '285px',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='dayScrollEventHandler')
+                          fa-surface.relative-image(ng-if="post.image_url" fa-size='[(320 -20), 300]' ng-class="{connect : post.text, commentShadow : !post.text}")
+                            .image(ng-click="showComments(post.id)" ng-style="{'background-image':'url({{post.image_url}})', 'height': '285px',  'width': '{{320}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='dayScrollEventHandler')
                               fa-app(ng-if="!post.text")
                                 fa-surface.content-date {{moment(post.created_at).format('LT')}}
                                 fa-surface.comments-icon(fa-size='[100,30]' ng-click="commentsModal()") Comments {{post.comments}}
                                 fa-image-surface.heart(fa-image-url="img/heart.png" fa-size='[20,20]' ng-click="like(post)")
                                 fa-surface.likes-image {{post.likes}}
-                          fa-surface.relative-text.commentShadow(ng-if="post.text" fa-background-color="white" fa-size='[(getPageWidth() -20), 200]' ng-class="{connectTop : post.image_url}")
+                          fa-surface.relative-text.commentShadow(ng-if="post.text" fa-background-color="white" fa-size='[(320 -20), 200]' ng-class="{connectTop : post.image_url}")
                             .content(fa-pipe-to="dayScrollEventHandler")
                               //- .open-quote
                               fa-app

@@ -243,10 +243,10 @@
     $scope.boxTransitionableFooter3 = new Transitionable([0, 0, 0]);
     $scope.opacityTrans3 = new Transitionable(1);
       //spotlight post box
-    var windowInnerHeight = window.innerHeight,
+    var windowInnerHeight = 568,
     // windowMiddleWidth = window.innerWidth/2,
     // negativeWindowWidth = -window.innerWidth,
-    windowWidth = window.innerWidth;
+    windowWidth = 320;
     $scope.boxTransitionableSpotlightPost = new Transitionable([0, windowInnerHeight, 0]);
     $scope.postboxSize = new Transitionable([windowWidth,windowInnerHeight]);
     $scope.postboxTransparency = new Transitionable(1);
