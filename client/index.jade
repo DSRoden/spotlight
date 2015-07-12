@@ -12,12 +12,8 @@ html.no-js(ng-app='hapi-auth', lang='en')
     link(rel='stylesheet', href='/index.css')
     script(src='/vendor/foundation/js/vendor/modernizr.js')
   body
-    .row
-      .small-12.columns
-        include views/nav/nav
-    .row
-      .small-12.columns
-        div(ui-view)
+    fa-app
+        ui-view(fa-animate-leave='leave($done)', fa-animate-enter='enter($done)')
 
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/foundation/js/foundation.min.js')
@@ -25,6 +21,10 @@ html.no-js(ng-app='hapi-auth', lang='en')
     script(src='/vendor/angular-ui-router/release/angular-ui-router.min.js')
     script(src='/vendor/underscore/underscore-min.js')
     script(src='/vendor/ng-file-upload/angular-file-upload-all.min.js')
+    //- famous
+    script(src='lib/famous/dist/famous-global.js')
+    script(src='lib/famous-angular/dist/famous-angular.js')
+
     script(src='/vendor/moment/min/moment.min.js')
 
     script(src='/index.js')
@@ -42,6 +42,3 @@ html.no-js(ng-app='hapi-auth', lang='en')
     script(src='/views/nav/nav.js')
     script(src='/socket.io/socket.io.js')
     script(src='/analytics.js')
-
-    script.
-      $(document).foundation();
