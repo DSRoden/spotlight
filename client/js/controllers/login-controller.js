@@ -43,6 +43,12 @@
           $scope.registerContainerMarginTop = 25;
         } else {
           console.log('unrecognized size');
+           $scope.spotlightWinnerCardHeight = 490;
+          $scope.spotlightWinnerMarginTop = 25;
+          $scope.spotlightWinnerBackArrow = 30;
+          $scope.accountButtonPosition = 24;
+          $scope.titlePosition = 20;
+          $scope.registerContainerMarginTop = 20;
         }
       }
 

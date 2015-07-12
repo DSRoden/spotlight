@@ -16,6 +16,7 @@
           $scope.margin = 45;
         } else {
           console.log('unrecognized size');
+           $scope.margin = 25;
         }
       };
       marginTop();

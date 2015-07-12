@@ -174,6 +174,17 @@
           $scope.photoInfoContainerMarginTop = 100;
           $scope.tipsScrollMarginTop = 150;
         } else {
+           $scope.spotlightWinnerCardHeight = 460;
+          $scope.spotlightWinnerMarginTop = 25;
+          $scope.spotlightWinnerBackArrow = 30;
+          $scope.backArrowOnboardingView = 400;
+          $scope.gridMarginLeft = 25;
+          $scope.gridMarginTop = -20;
+          $scope.onboardingCardHeight = 560;
+          $scope.cameraLeftMargin = -40;
+          $scope.albumRightMargin = 30;
+          $scope.photoInfoContainerMarginTop = 15;
+          $scope.tipsScrollMarginTop = 70;
           console.log('unrecognized size');
         }
       }
