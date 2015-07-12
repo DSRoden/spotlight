@@ -1,0 +1,109 @@
+fa-app.comments-background
+  fa-view(fa-index='1')
+    fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
+      fa-surface(fa-pipe-to='eventHandler')
+        fa-app
+            fa-view
+              fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
+                fa-surface(fa-size='[getPageWidth(), 15]').phone-top-bar
+                fa-header-footer-layout(fa-options='{headerSize: 60, footerSize: 50}')
+                    // header
+                    fa-modifier(fa-translate="boxTransitionableHeader2.get()")
+                      fa-surface.absolute(fa-background-color="'black'")
+                        fa-app
+                          fa-image-surface.spotlight-avatar(fa-size='[45,45]' fa-image-url="img/spotlight-icon-tiered.png" ng-click="showWinnerInfo()")
+                          fa-surface.spotlight-name(ng-click="showWinnerInfo()") Lilly Bloomings 
+                          fa-surface.twitter(ng-click="showWinnerTwitter()") t
+                          fa-surface.facebook(ng-click="goToCategories()") f
+
+                    // content
+                    fa-surface(fa-background-color="'white'")
+                      fa-app
+                        fa-scroll-view#comments-scrollview(fa-pipe-from='commentsScrollHandler' fa-options='options.container')
+                          fa-view(fa-size='[getPageWidth(), commentsScrollHeight]')
+                            fa-modifier(ng-repeat='post in comments track by $index')
+                              fa-surface.relative-image(ng-if="post.image_url" fa-size='[(getPageWidth() - 19), 300]' ng-class="{connect : post.originalText, commentShadow : !post.originalText}")
+                                .image(ng-click="showComments(post.id)" ng-style="{'background-image':'url({{post.image_url}})', 'height': '285px',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='commentsScrollHandler')
+                                  fa-app(ng-if="!post.originalText")
+                                    fa-surface.content-date {{moment(post.created_at).format('LT')}}
+                                    fa-surface.comments-icon(fa-size='[100,30]' ng-click="commentsModal(post)") Comments {{post.comments}}
+                                    fa-image-surface.heart(fa-image-url="img/heart.png" fa-size='[20,20]' ng-click="like(post)")
+                                    fa-surface.likes-image {{post.likes}}
+                              fa-surface.relative-text.commentShadow(ng-if="post.originalText" fa-background-color="white" fa-size='[(getPageWidth() - 19), 200]' ng-class="{connectTop : post.image_url}")
+                                .content(fa-pipe-to="commentsScrollHandler")
+                                  //- .open-quote
+                                  fa-app
+                                    fa-surface.content-text(ng-click="commentsModal()")  {{post.originalText}}
+                                    fa-surface.content-date {{moment(post.created_at).format('LT')}}
+                                    fa-surface.comments-icon(fa-size='[100,30]') Comments {{post.comments}}
+                                    fa-image-surface.heart(fa-image-url="img/heart.png" fa-size='[20,20]' ng-click="like(post)")
+                                    fa-surface.likes {{post.likes}}
+                              fa-surface.relative-image(ng-if="(post.text && !post.originalText)" fa-background-color="white" fa-size='[(getPageWidth() - 20), post.size]' fa-pipe-to='commentsScrollHandler')
+                                fa-app
+                                  fa-surface.content-text  {{post.text}}
+                                  fa-surface.content-date {{moment(post.created_at).format('LT')}}
+                                  fa-surface.comments-icon - User name 
+                                  fa-image-surface.heart(fa-image-url="img/heart.png" fa-size='[20,20]' ng-click="like(post)")
+                                  fa-surface.likes {{post.likes}}
+              
+                    // footer
+                    fa-modifier(fa-translate="boxTransitionableFooter2.get()" fa-opacity="opacityTrans2" fa-size='[50,50]')
+                      fa-image-surface.menu-icon(fa-size='[50,50]' fa-image-url="img/compose_icon_yellow.png" ng-click="showRegistration()")
+                      fa-image-surface.spotlight-icon(fa-size='[50,50]' fa-image-url="img/left_arrow_yellow.png" ng-click="closeComments()")
+
+            fa-modifier(fa-translate="boxTransitionableRegistration.get()" fa-opacity="registrationBoxTransparency" fa-size="registrationBoxSize.get()")
+              fa-surface.registration-view-background.registration-z-index
+                fa-app.registration-view-background(ng-if="userNotSignedIn")
+                  fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="aboutTransparency")
+                    fa-surface.registration-view-background(ng-if="about")
+                      .about-container
+                        .about-title Why Spotlight?
+                        .about-info 
+                          span Spotlight is an attempt to create a simpler social network.
+                          span Spotlight is an attempt to create a simpler social network.
+                          span Spotlight is an attempt to create a simpler social network.
+                          span Spotlight is an attempt to create a simpler social network.
+                          span Spotlight is an attempt to create a simpler social network.
+                        .go-back-to-login(ng-click="closeAboutOne()") Back
+                  fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="loginTransparency")
+                    fa-surface.registration-view-background(ng-if="login" fa-tap="tapEvent($event)" fa-pipe-to="archiveScrollEventHandler") 
+                      .login-container
+                        .title(ng-style="{'margin-top' : '{{titlePosition}}px'}") Spotlight
+                        .logo
+                        .login-username
+                          input.account-input(type="text" ng-model="user.username" placeholder="User name")
+                        .login-password
+                          input.account-input(type="password" ng-model="user.password" placeholder="Password")
+                        .register-surface-buttons
+                          .account-login(ng-style="{'left' : '{{accountButtonPosition}}%'}") Login
+                          .account-register(ng-style="{'right' : '{{accountButtonPosition}}%'}" ng-click="showRegister()") Register
+                        .about-section(ng-style="{'text-align' : 'center'}")
+                          .question-mark(ng-click="showAboutOne($event);")
+                          .close-registration(ng-click="closeRegistration()")
+                  fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="registerTransparency")             
+                    fa-surface.registration-view-background(ng-if="register") 
+                      .register-container(ng-style="{'margin-top' : '{{registerContainerMarginTop}}%'}")
+                        .register-username
+                          input.account-input(type="text" ng-model="user.username" placeholder="User name")
+                        .register-password
+                          input.account-input(type="password" ng-model="user.password" placeholder="Password")
+                        .register-password-confirmation
+                          input.account-input(type="password" ng-model="user.passwordConfirmation" placeholder="Confirm Password")
+                        .register-phone
+                          input.account-input(type="text" ng-model="user.phone" placeholder="Phone (optional)")
+                        .register-explanation * Adding your phone number enters you into the Spotlight Lottery, we will never use it for any other purpose.
+                        .register-surface-buttons
+                          .account-login(ng-style="{'left' : '{{accountButtonPosition}}%'}" ng-click="showLogin()")  Login
+                          .account-register(ng-style="{'right' : '{{accountButtonPosition}}%'}" ng-click="showRegister()")  Register
+
+               //- if clicking on spotlight winner
+            fa-modifier(fa-translate="boxTransitionableWinnerInfo.get()" fa-opacity="winnerInfoBoxTransparency" fa-size="winnerInfoBoxSize.get()")
+              fa-surface.winner-info-background
+                .winner-info-card(ng-style="{'margin' : '5px', 'background' : 'white', 'padding' : '10px', 'border': '1px solid rgba(103, 98, 98, .2)', 'border-bottom' : '2px solid rgba(103, 98, 98, .6)', 'height' : '{{spotlightWinnerCardHeight}}px'}")
+                  .winner-image(ng-style="{'position' : 'relative', 'margin-top' : '{{spotlightWinnerMarginTop}}px'}")
+                    .image(ng-style="{'background-image':'url({{winner.avatar_url}})', 'height': '200px',  'width': '{{getPageWidth()}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}" fa-pipe-to='dayScrollEventHandler')
+                  .winner-bio(ng-style="{'position' : 'relative', 'margin-top' : '20px', 'padding' : '15px', 'margin' : '10px', 'font-size' : '16px', 'font-family' : 'Helvetica Neue'}") {{winner.bio}}
+                  .arrow-container(ng-style="{'text-align' : 'center', 'margin-top' : '{{spotlightWinnerBackArrow}}px'}")
+                    .go-back-to-main.back-arrow(ng-click="closeWinnerInfo()")
+
+

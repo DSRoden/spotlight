@@ -1,44 +1,56 @@
 doctype html
-//if IE 9
-  html.lt-ie10(lang='en')
-html.no-js(ng-app='hapi-auth', lang='en')
+html(ng-app='spotlight-famous', lang='en')
   head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title Spotlight 
-    link(rel='stylesheet', href='/vendor/foundation/css/normalize.css')
-    link(rel='stylesheet', href='/vendor/foundation/css/foundation.css')
-    link(rel='stylesheet', href='/vendor/fontawesome/css/font-awesome.css')
-    link(rel='stylesheet', href='/index.css')
-    script(src='/vendor/foundation/js/vendor/modernizr.js')
-  body
-    fa-app
-        ui-view(fa-animate-leave='leave($done)', fa-animate-enter='enter($done)')
+    title Spotlight Famous
+    meta(name='viewport', content='width=device-width, maximum-scale=1, user-scalable=no')
+    meta(name='mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    meta(name="format-detection" content="telephone=no")
 
-    script(src='/vendor/jquery/dist/jquery.min.js')
-    script(src='/vendor/foundation/js/foundation.min.js')
-    script(src='/vendor/angular/angular.min.js')
-    script(src='/vendor/angular-ui-router/release/angular-ui-router.min.js')
-    script(src='/vendor/underscore/underscore-min.js')
-    script(src='/vendor/ng-file-upload/angular-file-upload-all.min.js')
-    //- famous
-    script(src='lib/famous/dist/famous-global.js')
-    script(src='lib/famous-angular/dist/famous-angular.js')
+    // shims for backwards compatibility
+    script(type='text/javascript', src='http://code.famo.us/lib/functionPrototypeBind.js')
+    script(type='text/javascript', src='http://code.famo.us/lib/classList.js')
+    script(type='text/javascript', src='http://code.famo.us/lib/requestAnimationFrame.js')
 
+    //angular
+    script(src='/vendor/angular/angular.js')
+    script(src='/vendor/underscore/underscore.js')
+    script(src='/vendor/angular-ui-router/release/angular-ui-router.js')
+    //- script(src='vendor/angular-touch/angular-touch.js')
+    script(src='/vendor/ngDialog/js/ngDialog.min.js')
+
+
+    //fast click
+    //- script(src='/vendor/fastclick.js')
+
+    //jquery
+    //- script(src='/vendor/jquery/dist/jquery.js')
+
+    // famous
+    script(src='/vendor/famous/dist/famous-global.js')
+    script(src='/vendor/famous-angular/dist/famous-angular.js')
+    link(rel='stylesheet', type='text/css', href='http://code.famo.us/famous/0.3/famous.css')
+    script(type='text/javascript', src='http://code.famo.us/famous/0.3/famous-global.min.js')
+
+    // moment
     script(src='/vendor/moment/min/moment.min.js')
 
-    script(src='/index.js')
-    script(src='/models/user.js')
-    script(src='/models/note.js')
-    script(src='/models/message.js')
-    script(src='/models/photo.js')
-    script(src='/models/day.js')
-    script(src='/views/users/users.js')
-    script(src='/views/notes/notes_list.js')
-    script(src='/views/notes/notes_detail.js')
-    script(src='/views/home/home.js')
-    script(src='/views/days/days_list.js')
-    script(src='/views/spotlight/spotlight.js')
-    script(src='/views/nav/nav.js')
-    script(src='/socket.io/socket.io.js')
-    script(src='/analytics.js')
+    // app code
+    link(rel='stylesheet', type='text/css', href='style/index.css')
+    link(rel='stylesheet', type='text/css', href='style/home.css')
+    link(rel='stylesheet', type='text/css', href='style/login-modal.css')
+    link(rel='stylesheet', type='text/css', href='style/onboarding.css')
+    link(rel='stylesheet', type='text/css', href='/vendor/ngDialog/css/ngDialog.css')
+
+    script(type='text/javascript', src='index.js')
+    script(type='text/javascript', src='js/controllers/home-controller.js')
+    script(type='text/javascript', src='js/controllers/comments-controller.js')
+    script(type='text/javascript', src='js/controllers/account-controller.js')
+    script(type='text/javascript', src='js/controllers/login-controller.js')
+    script(type='text/javascript', src='js/controllers/onboarding-controller.js')
+    script(type='text/javascript', src='js/controllers/categories-controller.js')
+  body
+      fa-app.website-size
+        ui-view(fa-animate-leave='leave($done)', fa-animate-enter='enter($done)')
+

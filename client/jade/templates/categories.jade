@@ -1,0 +1,9 @@
+fa-view
+  fa-modifier(fa-opacity="categoriesOpacity" fa-size='[getPageWidth(), getPageHeight()]')
+    fa-surface(fa-pipe-to='categoriesEventHandler')
+      fa-app(ng-controller="CategoriesCtrl")
+          fa-view
+            fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
+              fa-draggable#draggable1(fa-pipe-from="categoriesEventHandler" fa-options='options.draggable1')
+                fa-surface(fa-size='[50,50]', fa-background-color="'black'" fa-pipe-to="categoriesEventHandler")
+

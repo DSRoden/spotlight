@@ -1,0 +1,14 @@
+//- user account
+fa-app.blue-background
+  fa-modifier(fa-size="[getPageWidth(),getPageHeight()]")
+    fa-surface.full-width
+      .instructions(ng-style="{'position' : 'relative', 'height' : '20%', 'margin-top' : '{{margin}}%', 'text-align' : 'center', 'color' : '#ffdc00', 'font-family' : 'Helvetica Neue'}")
+        h2 Edit your information.
+      .account-inputs(ng-style="{'position' : 'relative', 'height' : '110px'}")
+        input.account-card-input(placeholder="Username")
+        input.account-card-input(placeholder="Phone number")
+      .info(ng-style="{'position' : 'relative', 'height' : '20%', 'text-align' : 'center', 'color' : '#ffdc00', 'padding' : '20px', 'font-family' : 'Helvetica Neue'}")
+        h4 Adding a number enters you into the Spotlight Lottery. We will never use it for any other purpose.
+      .account-buttons(ng-style="{'position' : 'relative'}")
+        .account-go-back-button(ng-click="closeUserAccount()") Back
+        .account-save-button Save

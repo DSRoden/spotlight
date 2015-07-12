@@ -1,0 +1,79 @@
+fa-view
+  fa-modifier(fa-opacity="onboardingOpacity" fa-size='[getPageWidth(), getPageHeight()]')
+    fa-surface.information-card(fa-size='[(getPageWidth() - 10), {{onboardingCardHeight}}]')
+      fa-app
+        fa-modifier(fa-size="[getPageWidth() - 10, 400]" fa-opacity="photoTransparency")
+          fa-surface(ng-if="onboardingPhoto")
+            //- photo
+            .photo-info-container(ng-style="{'padding' : '10px', 'margin-top' : '{{photoInfoContainerMarginTop}}px'}")
+              .process-title Add a Photo
+              .current-photo(ng-style="{'background-image':'url({{winner.avatar_url || winnerAvatarDefault}})', 'height': '200px',  'width': '{{getPageWidth()-20}}', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}")
+              .photo-info-container-buttons(ng-style="{'position' : 'relative'}")
+                .replace-photo-camera(ng-style="{'left' : '{{cameraLeftMargin}}%'}")
+                .replace-photo-albums(ng-style="{'right' : '{{albumRightMargin}}%'}") 
+              .save-user-photo(ng-click="showOnboardingProcess(onboardingNextProcess)" ng-style="{'margin-top' : '90px'}") Save
+              .opt-out(ng-style="{'margin-top' : '30px'}") I changed my mind!
+
+        fa-modifier(fa-size="[getPageWidth() - 10, 400]" fa-opacity="bioTransparency")
+          fa-surface(ng-if="onboardingBio")
+            //- bio  
+            .bio-info-container(ng-style="{'padding' : '10px', 'margin-top' : '{{photoInfoContainerMarginTop}}px'}")
+              .process-title Share a little about yourself
+              textarea.bio-area(ng-style="{'height' : '175px', 'width' : '98%', 'border' : '1px solid #ffdc00'}")
+              .save-user-bio(ng-click="showOnboardingProcess(onboardingNextProcess)" ng-style="{'margin-top' : '20px'}") Save
+              .back-one-process(ng-click="backOnboardingProcess(onboardingCurrentProcess)" ng-style="{'margin-top' : '30px'}")
+              .opt-out(ng-style="{'margin-top' : '32px'}") I changed my mind!
+
+        fa-modifier(fa-size="[getPageWidth() - 10, 400]" fa-opacity="socialTransparency")
+          fa-surface(ng-if="onboardingSocial")
+            //- social 
+            .social-info-container(ng-style="{'padding' : '10px', 'margin-top' : '{{photoInfoContainerMarginTop}}px'}")
+              .process-title Make friends
+              input.social-winner-input(placeholder="Facebook Name")
+              input.social-winner-input(placeholder="Twitter Handle")
+              .save-user-bio(ng-click="showOnboardingProcess(onboardingNextProcess)" ng-style="{'margin-top' : '42px'}") Save
+              .back-one-process(ng-click="backOnboardingProcess(onboardingCurrentProcess)" ng-style="{'margin-top' : '32px'}")
+              .opt-out(ng-style="{'margin-top' : '32px'}") I changed my mind!
+
+        fa-modifier(fa-size="[getPageWidth() - 10, 400]" fa-opacity="tipsTransparency")
+          fa-surface(ng-if="onboardingTips")
+            //- tips
+            .tips-info-container(ng-style="{'padding' : '10px', 'margin-top' : '{{photoInfoContainerMarginTop}}px'}")
+              .process-title Tips
+              fa-app.tips-scroll-height(ng-if="onboardingTips" ng-style="{'height' : '185px', 'margin-top' : '{{tipsScrollMarginTop}}px'}")
+                fa-scroll-view#tips-scrollview(fa-pipe-from='tipsHandler' fa-options='options.tipsContainer')
+                  fa-view(ng-repeat='tip in spotlightTips track by $index' fa-size='[300, 800]')
+                    fa-modifier(fa-size='[getPageWidth(), 100]')
+                      fa-surface.tip-item(fa-pipe-to='tipsHandler')
+                       .tip {{tip}}
+              .save-user-bio(ng-click="confirmSpotlightAndSwitchStates()" ng-style="{'margin-top' : '225px'}") Get started!
+              .back-one-process(ng-click="backOnboardingProcess(onboardingCurrentProcess)" ng-style="{'margin-top' : '31px'}")
+              .opt-out(ng-style="{'margin-top' : '32px'}") I changed my mind!
+
+
+    //- fa-surface(ng-style="{'height' : '0px ! important'}")
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      

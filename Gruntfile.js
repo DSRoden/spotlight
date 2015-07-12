@@ -70,9 +70,9 @@ module.exports = function(grunt){
         expand: true
       },
       assets: {
-        cwd: 'client/assets',
+        cwd: 'client/img',
         src: ['**/*'],
-        dest: 'public/assets',
+        dest: 'public/img',
         expand: true
       },
       favicon: {

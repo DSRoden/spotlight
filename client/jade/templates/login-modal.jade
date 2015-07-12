@@ -1,0 +1,91 @@
+fa-app
+  fa-modifier(fa-size='[getPageWidth(), getPageHeight()]')
+    fa-surface.registration-view-background.registration-z-index
+      fa-app.registration-view-background
+        fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="aboutTransparency")
+          fa-surface.registration-view-background(ng-if="about")
+            .about-container
+              .about-title Why Spotlight?
+              .about-info 
+                span Spotlight is an attempt to create a simpler social network.
+                span Spotlight is an attempt to create a simpler social network.
+                span Spotlight is an attempt to create a simpler social network.
+                span Spotlight is an attempt to create a simpler social network.
+                span Spotlight is an attempt to create a simpler social network.
+              .go-back-to-login(ng-click="closeAboutOne()") Back
+        fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="loginTransparency")
+          fa-surface.registration-view-background(ng-if="login" fa-tap="tapEvent($event)" fa-pipe-to="loginEventHandler") 
+            .login-container
+              .title(ng-style="{'margin-top' : '{{titlePosition}}px'}") Spotlight
+              .logo
+              .login-username
+                input.account-input(type="text" ng-model="user.username" placeholder="User name")
+              .login-password
+                input.account-input(type="password" ng-model="user.password" placeholder="Password")
+              .register-surface-buttons
+                .account-login(ng-style="{'left' : '{{accountButtonPosition}}%'}", ng-click="login()") Login
+                .account-register(ng-style="{'right' : '{{accountButtonPosition}}%'}" ng-click="showRegister()") Register
+              .about-section(ng-style="{'text-align' : 'center'}")
+                .question-mark(ng-click="showAboutOne($event);")
+                .close-registration(ng-click="closeLogin()")
+        fa-modifier(fa-size="[getPageWidth(), 400]" fa-opacity="registerTransparency")             
+          fa-surface.registration-view-background(ng-if="register") 
+            .register-container(ng-style="{'margin-top' : '{{registerContainerMarginTop}}%'}")
+              .register-username
+                input.account-input(type="text" ng-model="user.username" placeholder="User name")
+              .register-password
+                input.account-input(type="password" ng-model="user.password" placeholder="Password")
+              .register-password-confirmation
+                input.account-input(type="password" ng-model="user.passwordConfirmation" placeholder="Confirm Password")
+              .register-phone
+                input.account-input(type="text" ng-model="user.phone" placeholder="Phone (optional)")
+              .register-explanation * Adding your phone number enters you into the Spotlight Lottery, we will never use it for any other purpose.
+              .register-surface-buttons
+                .account-login(ng-style="{'left' : '{{accountButtonPosition}}%'}" ng-click="showLogin()")  Login
+                .account-register(ng-style="{'right' : '{{accountButtonPosition}}%'}" ng-click="showRegister()")  Register
+
+                    //- if clicking on spotlight winner
+        fa-modifier(fa-translate="boxTransitionableWinnerChosen.get()" fa-opacity="winnerChosenBoxTransparency" fa-size="winnerChosenBoxSize.get()")
+          fa-surface.winner-info-background
+            .congratulations(ng-style="{'margin-top' : '{{titlePosition + 100}}px'}")
+              h3 The Spotlight's all yours!
+            .winner-icon
+            .what-does-winning-mean
+              h4 The whole world's a stage, will you set the scene?
+            .winner-option-buttons
+              .no-thanks(ng-style="{'left' : '{{accountButtonPosition}}%'}" ng-click="spotlightRejected()") No thanks
+              .seize-the-spotlight(ng-style="{'right' : '{{accountButtonPosition}}%'}" ng-click="spotlightAccepted()") Yes!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
